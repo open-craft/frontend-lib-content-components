@@ -85,7 +85,7 @@ let problemType = ProblemTypeKeys.TEXTINPUT;
     if (answer) {
       problemType = isFinite(answer) ? ProblemTypeKeys.NUMERIC : ProblemTypeKeys.TEXTINPUT;
       shortAnswersList.push({
-        id: Number(i),
+        id: shortAnswersList.length,
         value: answer,
         feedback,
         correct,
@@ -138,7 +138,7 @@ function getMultipleChoiceOptions(markdown) {
         }
       }
       multipleChoiceOptions.push({
-        id: Number(d),
+        id: multipleChoiceOptions.length,
         title,
         correct: !row.startsWith('[ ]'),
         selectedFeedback,
@@ -163,7 +163,7 @@ function getMultipleChoiceOptions(markdown) {
 
         if (groupChoices.length && feedback) {
           data.groupFeedbackList.push({
-            id: Number(i),
+            id: groupChoices.length,
             answers: groupChoices,
             feedback,
           });
@@ -206,7 +206,7 @@ function getSingleChoiceOptions(markdown) {
         }
         const correct = true;
         singleChoiceOptions.push({
-          id: Number(d),
+          id: singleChoiceOptions.length,
           title,
           correct,
           feedback,
@@ -226,7 +226,7 @@ function getSingleChoiceOptions(markdown) {
         }
         const correct = false;
         singleChoiceOptions.push({
-          id: Number(d),
+          id: singleChoiceOptions.length,
           title,
           correct,
           feedback,
@@ -243,7 +243,7 @@ function getSingleChoiceOptions(markdown) {
       }
       const correct = !!row.startsWith('(x)');
       singleChoiceOptions.push({
-        id: Number(d),
+        id: singleChoiceOptions.length,
         title,
         correct,
         feedback,
