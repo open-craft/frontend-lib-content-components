@@ -3,16 +3,17 @@ import { ProblemTypeKeys } from "../../../data/constants/problem";
 import { groupFeedbackWordMapping } from "./MarkDownParser";
 
 
-class ReactStateParser{
-    constructor(problemSate){
-        this.problemSate = problemSate
+export class ReactStateParser{
+    constructor(problemState){
+        this.problemState = problemState.problemState;
     }
+
     parseQuestion() {
-        let question = this.problemSate.question;
+        let question = this.problemState.question;
         let paresedQuestion = this.splitLines(question);
         let parsedString = '';
         for (const line in paresedQuestion) {
-            let replacedString = paresedQuestion[i].replace("<p>", ">>").replace("</p>", "<<");
+            let replacedString = paresedQuestion[line].replace("<p>", ">>").replace("</p>", "<<");
             parsedString += `${replacedString}\n`
         }
         return parsedString;
@@ -20,7 +21,7 @@ class ReactStateParser{
 
     parseHints() {
         let hintString = '';
-        let hitnsList = this.problemSate.hints;
+        let hitnsList = this.problemState.hints;
         for (const hint in hitnsList){
             hintString += `||${hitnsList[hint]}||\n`;
         }
@@ -29,7 +30,7 @@ class ReactStateParser{
 
     parseDropdown(){
         let answerString = '';
-        let answers = this.problemSate.answers;
+        let answers = this.problemState.answers;
         for (const answer in answers){
             let answerObject = answers[answer];
             let answerContent = answerObject.title;
@@ -39,7 +40,7 @@ class ReactStateParser{
             } else {
                 answerString += ` ${answerContent}`
             }
-            if (answerFeedback !== '' || answerFeedback !== undefined){
+            if (answerFeedback !== undefined && answerFeedback.trim() !== ''){
                 answerString += ` {{${answerFeedback}}}`
             }
         }
@@ -49,7 +50,7 @@ class ReactStateParser{
 
     parseCheckBox(){
         let anwerString = '';
-        let answers = this.problemSate.answers;
+        let answers = this.problemState.answers;
         for (const answer in answers){
             let answerObject = answers[answer];
             let answerContent = answerObject.title;
@@ -77,7 +78,7 @@ class ReactStateParser{
 
     parseRadioButton(){
         let answerString = '';
-        let answers = this.problemSate.answers;
+        let answers = this.problemState.answers;
         for (const answer in answers){
             let answerObject = answers[answer];
             let answerContent = answerObject.title;
@@ -97,7 +98,7 @@ class ReactStateParser{
 
     parseInputAnswers(){
         let answerString = '';
-        let answers = this.problemSate.answers;
+        let answers = this.problemState.answers;
         let correctAnswer = false;
         for (const answer in answers){
             let answerObject = answers[answer];
@@ -121,7 +122,7 @@ class ReactStateParser{
 
     parseGroupFeedback() {
         let feedbackString = "";
-        const groupFeedbackArray = this.problemSate.groupFeedbackList;
+        const groupFeedbackArray = this.problemState.groupFeedbackList;
         if (!_.isEmpty(groupFeedbackArray)){
             for (const groupFeeback in groupFeedbackArray) {
                 let answers = groupFeeback.answers;
@@ -134,7 +135,7 @@ class ReactStateParser{
 
     getMarkdown() {
         let answers = ''
-        switch (this.problemSate.problemType) {
+        switch (this.problemState.problemType) {
             case ProblemTypeKeys.DROPDOWN:
                 answers = this.parseDropdown();
                 break;
@@ -150,11 +151,7 @@ class ReactStateParser{
             default:
                 break;
         }
-        let markdown = `${this.parseQuestion()}
-                        ${answers}
-                        ${this.parseHints()}
-                        ${this.parseGroupFeedback()}
-                        `
+        let markdown = `${this.parseQuestion()} ${answers} ${this.parseHints()} ${this.parseGroupFeedback()}`;
         return markdown;
     }
 
