@@ -1,4 +1,6 @@
+import _ from "lodash";
 import { ProblemTypeKeys } from "../../../data/constants/problem";
+import { groupFeedbackWordMapping } from "./MarkDownParser";
 
 
 class ReactStateParser{
@@ -93,6 +95,43 @@ class ReactStateParser{
         return answerString;
     }
 
+    parseInputAnswers(){
+        let answerString = '';
+        let answers = this.problemSate.answers;
+        let correctAnswer = false;
+        for (const answer in answers){
+            let answerObject = answers[answer];
+            let answerContent = answerObject.title;
+            let answerFeedback = answerObject?.feedback;
+            if (answerObject.correct && !correctAnswer) {
+                answerString += `=${answerContent}`;
+                correctAnswer = true;
+            } else if (answerObject.correct && correctAnswer) {
+                answerString += `or=${answerContent}`;
+            } else if (!answerObject.correct){
+                answerString += `not=${answerContent}`;
+            }
+            if (answerFeedback !== '' || answerFeedback !== undefined){
+                answerString += ` {{${answerFeedback}}}`;
+            }
+            answerString += `${answerString}\n`;
+        }
+        return answerString;
+    }
+
+    parseGroupFeedback() {
+        let feedbackString = "";
+        const groupFeedbackArray = this.problemSate.groupFeedbackList;
+        if (!_.isEmpty(groupFeedbackArray)){
+            for (const groupFeeback in groupFeedbackArray) {
+                let answers = groupFeeback.answers;
+                let options = `(( ${answers.map((ele)=> {return groupFeedbackWordMapping[ele]}).join(" ")} ))`;
+                feedbackString += `{{ ${options} ${groupFeeback.feedback} }}\n`;
+            }
+        }
+        return feedbackString
+    }
+
     getMarkdown() {
         let answers = ''
         switch (this.problemSate.problemType) {
@@ -105,14 +144,18 @@ class ReactStateParser{
             case ProblemTypeKeys.SINGLESELECT:
                 answers = this.parseRadioButton();
                 break;
-
+            case ProblemTypeKeys.NUMERIC:
+            case ProblemTypeKeys.TEXTINPUT:
+                answers = this.parseInputAnswers();
             default:
                 break;
         }
         let markdown = `${this.parseQuestion()}
                         ${answers}
                         ${this.parseHints()}
+                        ${this.parseGroupFeedback()}
                         `
+        return markdown;
     }
 
     splitLines(inputString){
