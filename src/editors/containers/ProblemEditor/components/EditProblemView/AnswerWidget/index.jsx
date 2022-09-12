@@ -19,7 +19,7 @@ const AnswerWidget = ({
           {problemStaticData.description}
         </h3>
       </div>
-      <AnswersContainer/>
+      <AnswersContainer problemType={problemType} />
     </div>
   );
 }
