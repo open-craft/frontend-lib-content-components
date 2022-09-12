@@ -5,7 +5,7 @@ import { groupFeedbackWordMapping } from "./MarkDownParser";
 
 export class ReactStateParser{
     constructor(problemState){
-        this.problemState = problemState.problemState;
+        this.problemState = problemState;
     }
 
     parseQuestion() {
@@ -23,7 +23,7 @@ export class ReactStateParser{
         let hintString = '';
         let hitnsList = this.problemState.hints;
         for (const hint in hitnsList){
-            hintString += `||${hitnsList[hint]}||\n`;
+            hintString += `||${hitnsList[hint].value}||\n`;
         }
         return hintString
     }
@@ -125,9 +125,9 @@ export class ReactStateParser{
         const groupFeedbackArray = this.problemState.groupFeedbackList;
         if (!_.isEmpty(groupFeedbackArray)){
             for (const groupFeeback in groupFeedbackArray) {
-                let answers = groupFeeback.answers;
+                let answers = groupFeedbackArray[groupFeeback].answers;
                 let options = `(( ${answers.map((ele)=> {return groupFeedbackWordMapping[ele]}).join(" ")} ))`;
-                feedbackString += `{{ ${options} ${groupFeeback.feedback} }}\n`;
+                feedbackString += `{{ ${options} ${groupFeedbackArray[groupFeeback].feedback} }}\n`;
             }
         }
         return feedbackString

@@ -18,7 +18,7 @@ export const EditProblemView = () => {
     return reactParser.getMarkdown();
  }
   return (
-      <EditorContainer getContent={parseSate({problemState})}>
+      <EditorContainer getContent={parseSate(problemState)}>
         <QuestionWidget />
         <AnswerWidget problemType={problemType} />
         <SettingsWidget />
