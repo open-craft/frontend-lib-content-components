@@ -56,19 +56,19 @@ export class ReactStateParser{
             let answerContent = answerObject.title;
             let answerSelectedFeedback = answerObject?.selectedFeedback;
             let answerUnselectedFeedback = answerObject?.unselectedFeedback;
-            let isSelectedFeedbackPresent = (answerSelectedFeedback !== '' || answerSelectedFeedback !== undefined);
-            let isUnselectedFeedbackPresent = (answerUnselectedFeedback !== '' || answerUnselectedFeedback !== undefined);
+            let isSelectedFeedbackPresent = (answerSelectedFeedback.trim() !== '' && answerSelectedFeedback !== undefined);
+            let isUnselectedFeedbackPresent = (answerUnselectedFeedback.trim() !== '' && answerUnselectedFeedback !== undefined);
             if (answerObject.correct) {
-                anwerString += ` [x] ${answerContent}`
+                anwerString += `[x] ${answerContent}`
             } else {
-                anwerString += ` [ ] ${answerContent}`
+                anwerString += `[ ] ${answerContent}`
             }
             if (isSelectedFeedbackPresent && isUnselectedFeedbackPresent){
-                anwerString += `{{selected: ${answerSelectedFeedback}},{unselected: ${answerUnselectedFeedback}}}\n`
+                anwerString += `{{selected: ${answerSelectedFeedback}},{unselected: ${answerUnselectedFeedback}}}`
             } else if (isSelectedFeedbackPresent) {
-                anwerString += `{{selected: ${answerSelectedFeedback}}}\n`
+                anwerString += `{{selected: ${answerSelectedFeedback}}}`
             } else if (isUnselectedFeedbackPresent) {
-                anwerString += `{{unselected: ${answerUnselectedFeedback}}}\n`
+                anwerString += `{{unselected: ${answerUnselectedFeedback}}}`
             }
             anwerString += "\n";
         }
@@ -151,7 +151,7 @@ export class ReactStateParser{
             default:
                 break;
         }
-        let markdown = `${this.parseQuestion()} ${answers} ${this.parseHints()} ${this.parseGroupFeedback()}`;
+        let markdown = `${this.parseQuestion()}${answers}${this.parseHints()}${this.parseGroupFeedback()}`;
         return markdown;
     }
 
