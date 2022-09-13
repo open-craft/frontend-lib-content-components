@@ -10,6 +10,13 @@ import { ProblemTypeKeys } from '../../../../../data/constants/problem';
 const alphabets = [...Array(26).keys()].map(i => String.fromCharCode(i + 65));
 
 export const hooks = {
+  initialize: (problemType) => {
+    const mainAnswerState = useSelector(selectors.problem.answers);
+    const [answers, setAnswers] = useState(mainAnswerState);
+    const getContent = () => answers;
+    const hasSingleAnswer = problemType === ProblemTypeKeys.DROPDOWN || problemType === ProblemTypeKeys.SINGLESELECT;
+    return {answers, setAnswers, getContent, hasSingleAnswer};
+  },
   displayAnswers: ({
     hasSingleAnswer,
     answers,
@@ -36,6 +43,9 @@ export const hooks = {
 
       const deleteAnswer = () => {
         setAnswers((currAnswers) => {
+          if (currAnswers.length <= 1) {
+            return currAnswers;
+          }
           const newAnswers = currAnswers.filter(obj => obj.id !== answer.id).map((answer, index) => {
             return {...answer, id: alphabets[index]}
           });
@@ -77,9 +87,7 @@ export const AnswersContainer = ({
   //Redux
   problemType,
 }) => {
-  const mainAnswerState = useSelector(selectors.problem.answers);
-  const [answers, setAnswers] = useState(mainAnswerState);
-  const hasSingleAnswer = problemType === ProblemTypeKeys.DROPDOWN || problemType === ProblemTypeKeys.SINGLESELECT;
+  const {answers, setAnswers, hasSingleAnswer} = hooks.initialize(problemType);
 
   useEffect(() => {
     setAnswers((currAnswers) => {
@@ -93,7 +101,12 @@ export const AnswersContainer = ({
   return (
     <div>
       {hooks.displayAnswers({hasSingleAnswer, answers, setAnswers})}
-      <Button className="my-3 ml-2" iconBefore={Add} variant="tertiary" onClick={() => hooks.addAnswer(setAnswers)}>
+      <Button
+        className="my-3 ml-2"
+        iconBefore={Add}
+        variant="tertiary"
+        onClick={() => hooks.addAnswer(setAnswers)}
+      >
         Add answer
       </Button>
     </div>
