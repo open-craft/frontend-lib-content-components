@@ -26,8 +26,9 @@ export const videoDataProps = {
 
 export const answerOptionProps = PropTypes.shape({
   id: PropTypes.string,
-  content: PropTypes.string,
+  title: PropTypes.string,
   correct: PropTypes.bool,
+  feedback: PropTypes.string,
   selectedFeedback: PropTypes.string,
   unselectedFeedback: PropTypes.string,
   answer: PropTypes.string,

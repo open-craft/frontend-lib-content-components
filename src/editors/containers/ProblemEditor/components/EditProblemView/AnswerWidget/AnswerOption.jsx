@@ -1,30 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import { Col, Collapsible, Icon, IconButton, Form, Row } from '@edx/paragon';
 import { AddComment, Delete } from '@edx/paragon/icons';
 import { FormattedMessage, injectIntl, intlShape } from '@edx/frontend-platform/i18n';
+import { actions } from '../../../../../data/redux';
+import { useDispatch } from 'react-redux';
 
 import messages from './messages';
 import { answerOptionProps } from "../../../../../data/services/cms/types";
 
-const AnswerOption = ({
+let AnswerOption = ({
   answer,
   hasSingleAnswer,
-  setAnswer,
-  deleteAnswer,
   // injected
   intl,
 }) => {
+  console.log(`rendered: ${answer.id}`)
   const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
+  const dispatch = useDispatch();
+  const deleteAnswer = () => dispatch(actions.problem.deleteAnswer({ id: answer.id }));
+  const setAnswer = (payload) => dispatch(actions.problem.updateAnswer({ id: answer.id, hasSingleAnswer, ...payload }));
 
   useEffect(() => {
     // show feedback fields if feedback is present
-    setIsFeedbackVisible(!!answer.selectedFeedback || !!answer.unselectedFeedback);
+    setIsFeedbackVisible(!!answer.selectedFeedback || !!answer.unselectedFeedback || !!answer.feedback);
   }, [])
 
   const toggleFeedback = (open) => {
     // do not allow to hide if feedback is added
-    if (!!answer.selectedFeedback || !!answer.unselectedFeedback) {
+    if (!!answer.selectedFeedback || !!answer.unselectedFeedback || !!answer.feedback) {
       return;
     }
     setIsFeedbackVisible(open);
@@ -123,11 +127,10 @@ const AnswerOption = ({
   )
 }
 
+AnswerOption = memo(AnswerOption);
 AnswerOption.propTypes = {
   answer: answerOptionProps.isRequired,
   hasSingleAnswer: PropTypes.bool.isRequired,
-  setAnswer: PropTypes.func.isRequired,
-  deleteAnswer: PropTypes.func.isRequired,
   // injected
   intl: intlShape.isRequired,
 };

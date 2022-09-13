@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { StrictDict } from '../../../utils';
 
+const alphabets = [...Array(26).keys()].map(i => String.fromCharCode(i + 65));
+const nextAlphaId = (lastId) => String.fromCharCode(lastId.charCodeAt(0) + 1)
 const initialState = {
   rawOLX: '',
   problemType: 'SINGLESELECT',
@@ -43,6 +45,61 @@ const problem = createSlice({
       ...state,
       question: payload
     }),
+    updateAnswer: (state, { payload }) => {
+      // you can mutuate state only inside creating
+      // https://redux-toolkit.js.org/usage/immer-reducers#immutable-updates-with-immer
+      const { id, hasSingleAnswer, ...answer } = payload;
+      state.answers = state.answers.map(obj => {
+        if (obj.id === id) {
+          return {...obj, ...answer};
+        }
+        // set other answers as incorrect if problem only has one answer correct
+        // and changes object include correct key change
+        if (hasSingleAnswer && "correct" in answer && obj.correct) {
+          return {...obj, correct: false};
+        }
+        return obj;
+      });
+    },
+    deleteAnswer: (state, { payload }) => {
+      const { id } = payload;
+      if (state.answers.length <= 1) {
+        return state;
+      }
+      state.answers = state.answers.filter(obj => obj.id !== id).map((answer, index) => {
+        return {...answer, id: alphabets[index]}
+      });
+    },
+    addAnswer: (state, { payload }) => {
+      const { hasSingleAnswer } = payload;
+      const currAnswers = state.answers;
+      if (currAnswers.length >= alphabets.length) {
+        return state;
+      }
+      const newOption = {
+        id: currAnswers.length ? nextAlphaId(currAnswers[currAnswers.length - 1].id) : "A",
+        title: "",
+        selectedFeedback: undefined,
+        unselectedFeedback: undefined,
+        feedback: undefined,
+        correct: false,
+      };
+      if (hasSingleAnswer) {
+        newOption.feedback = "";
+      } else {
+        newOption.selectedFeedback = "";
+        newOption.unselectedFeedback = "";
+      }
+      state.answers = [
+        ...currAnswers,
+        newOption,
+      ]
+    },
+    resetAnswerIds:  (state) => {
+      state.answers = state.answers.map((answer, index) => {
+        return {...answer, id: alphabets[index]}
+      });
+    },
     load: (state, { payload }) => ({
       ...state,
       ...payload,
