@@ -2,7 +2,8 @@ import { ReactStateParser } from "./ReactStateParser";
 import { checklistWithFeebackHints,
          dropdownWithFeedbackHints,
          numericWithHints,
-         textInputWithHints } from "./mockData/problemTestData";
+         textInputWithHints,
+         sigleSelectWithHints } from "./mockData/problemTestData";
 
 describe("Check Markdown Parser", () => {
   test("Test Multiselect with hints and feedback", () => {
@@ -21,5 +22,9 @@ describe("Check Markdown Parser", () => {
     let markdown = new ReactStateParser(textInputWithHints.problem).getMarkdown();
     // console.log(markdown);
     expect(markdown).toBe(textInputWithHints.markdown);
+  });
+  test("Test single select with hints", () => {
+    let markdown = new ReactStateParser(sigleSelectWithHints.problem).getMarkdown();
+    expect(markdown).toBe(sigleSelectWithHints.markdown);
   });
 })

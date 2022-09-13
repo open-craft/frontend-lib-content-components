@@ -213,7 +213,6 @@ not=60 +-5 {{You can specify optional feedback like this, which appears after th
 }
 
 export const textInputWithHints = {
-
     problem: {
         rawOLX: '<problem>\n    <stringresponse answer="the correct answer" type="ci">\n        <p>You can use this template as a guide to the simple editor markdown and OLX markup to use for text input with hints and feedback problems. Edit this component to replace this template with your own assessment.</p>\n        <label>Add the question text, or prompt, here. This text is required.</label>\n        <description>You can add an optional tip or note related to the prompt like this.</description>\n        <correcthint>You can specify optional feedback like this, which appears after this answer is submitted.</correcthint>\n        <additional_answer answer="optional acceptable variant of the correct answer"/>\n        <stringequalhint answer="optional incorrect answer such as a frequent misconception">You can specify optional feedback for none, a subset, or all of the answers.</stringequalhint>\n        <textline size="20"/>\n    </stringresponse>\n    <demandhint>\n        <hint>You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.</hint>\n        <hint>If you add more than one hint, a different hint appears each time learners select the hint button.</hint>\n    </demandhint>\n</problem>\n',
         problemType: 'TEXTINPUT',
@@ -276,6 +275,81 @@ export const textInputWithHints = {
 =the correct answer {{You can specify optional feedback like this, which appears after this answer is submitted.}}
 or=optional acceptable variant of the correct answer
 not=optional incorrect answer such as a frequent misconception {{You can specify optional feedback for none, a subset, or all of the answers.}}
+||You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.||
+||If you add more than one hint, a different hint appears each time learners select the hint button.||
+`
+}
+
+export const sigleSelectWithHints = {
+    problem: {
+        rawOLX: '<problem>\n<p>You can use this template as a guide to the simple editor markdown and OLX markup to use for checkboxes with hints and feedback problems. Edit this component to replace this template with your own assessment.</p>\n\n<label>Add the question text, or prompt, here. This text is required.</label>\n<description>You can add an optional tip or note related to the prompt like this.</description>\n<multiplechoiceresponse>\n  <choicegroup type="MultipleChoice">\n    <choice correct="true">a correct answer <choicehint>selected: You can specify optional feedback that appears after the learner selects and submits this answer. }, { unselected: You can specify optional feedback that appears after the learner clears and submits this answer.</choicehint></choice>\n    <choice correct="false">an incorrect answer</choice>\n    <choice correct="false">an incorrect answer <choicehint>selected: You can specify optional feedback for none, all, or a subset of the answers. }, { unselected: You can specify optional feedback for selected answers, cleared answers, or both.</choicehint></choice>\n    <choice correct="false">an incorrect answer again</choice>\n  </choicegroup>\n</multiplechoiceresponse>\n<choiceresponse>\n  <checkboxgroup>\n    <compoundhint value="A B D">You can specify optional feedback for a combination of answers which appears after the specified set of answers is submitted.</compoundhint>\n    <compoundhint value="A B C D">You can specify optional feedback for one, several, or all answer combinations.</compoundhint>\n  </checkboxgroup>\n</choiceresponse>\n\n\n<demandhint>\n  <hint>You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.</hint>\n  <hint>If you add more than one hint, a different hint appears each time learners select the hint button.</hint>\n</demandhint>\n</problem>',
+        problemType: 'SINGLESELECT',
+        question: 'You can use this template as a guide to the simple editor markdown and OLX markup to use for checkboxes with hints and feedback problems. Edit this component to replace this template with your own assessment.\n\n<p>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this.</p>\n\n',
+        answers: [
+          {
+            id: 0,
+            title: 'a correct answer',
+            correct: true,
+            feedback: 'Some new feedback'
+          },
+          {
+            id: 1,
+            title: 'an incorrect answer',
+            correct: false,
+            feedback: ''
+          },
+          {
+            id: 2,
+            title: 'an incorrect answer',
+            correct: false,
+            feedback: 'Wrong feedback'
+          },
+          {
+            id: 3,
+            title: 'an incorrect answer again',
+            correct: false,
+            feedback: ''
+          }
+        ],
+        groupFeedbackList: [],
+        hints: [
+          {
+            id: 13,
+            value: 'You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.'
+          },
+          {
+            id: 14,
+            value: 'If you add more than one hint, a different hint appears each time learners select the hint button.'
+          }
+        ],
+        settings: {
+          scoring: {
+            advanced: false,
+            scoring: {
+              wieght: 0,
+              attempts: {
+                unlimited: true,
+                number: 0
+              }
+            }
+          },
+          randomization: '',
+          timeBetween: 0,
+          MatLabApiKey: '',
+          showAnswer: {
+            on: '',
+            afterAtempts: 1
+          },
+          showResetButton: false
+        }
+      },
+    markdown: `You can use this template as a guide to the simple editor markdown and OLX markup to use for checkboxes with hints and feedback problems. Edit this component to replace this template with your own assessment.
+
+>>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this.<<
+(x) a correct answer {{Some new feedback}}
+( ) an incorrect answer
+( ) an incorrect answer {{Wrong feedback}}
+( ) an incorrect answer again
 ||You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.||
 ||If you add more than one hint, a different hint appears each time learners select the hint button.||
 `

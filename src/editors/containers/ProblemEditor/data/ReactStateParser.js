@@ -80,18 +80,19 @@ export class ReactStateParser{
         let answerString = '';
         let answers = this.problemState.answers;
         for (const answer in answers){
+            let answerOptionString = '';
             let answerObject = answers[answer];
             let answerContent = answerObject.title;
             let answerFeedback = answerObject?.feedback;
             if (answerObject.correct) {
-                answerString += `(x) ${answerContent}`;
+                answerOptionString += `(x) ${answerContent}`;
             } else {
-                answerString += `( ) ${answerContent}`;
+                answerOptionString += `( ) ${answerContent}`;
             }
-            if (answerFeedback !== '' || answerFeedback !== undefined){
-                answerString += ` {{${answerFeedback}}}`;
+            if (answerFeedback.trim() !== '' && answerFeedback !== undefined){
+                answerOptionString += ` {{${answerFeedback}}}`;
             }
-            answerString += `${answerString}\n`;
+            answerString += `${answerOptionString}\n`;
         }
         return answerString;
     }
@@ -149,6 +150,7 @@ export class ReactStateParser{
             case ProblemTypeKeys.NUMERIC:
             case ProblemTypeKeys.TEXTINPUT:
                 answers = this.parseInputAnswers();
+                break;
             default:
                 break;
         }

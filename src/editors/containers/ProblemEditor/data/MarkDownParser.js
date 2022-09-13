@@ -175,6 +175,7 @@ function getMultipleChoiceOptions(markdown) {
 }
 
 function getSingleChoiceOptions(markdown) {
+  // TODO: Build support for selected and unselected feedback
   if (!markdown || !markdown.trim()) {
     return {
       singleSelectAnswersList: [],
