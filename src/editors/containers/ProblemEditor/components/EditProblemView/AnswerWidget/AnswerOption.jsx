@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Col, Collapsible, Icon, IconButton, Form, Row } from '@edx/paragon';
 import { AddComment, Delete } from '@edx/paragon/icons';
 import { FormattedMessage, injectIntl, intlShape } from '@edx/frontend-platform/i18n';
-import { actions } from '../../../../../data/redux';
 import { useDispatch } from 'react-redux';
 
 import messages from './messages';
+import { actions } from '../../../../../data/redux';
 import { answerOptionProps } from "../../../../../data/services/cms/types";
 
 let AnswerOption = ({
@@ -15,7 +15,6 @@ let AnswerOption = ({
   // injected
   intl,
 }) => {
-  console.log(`rendered: ${answer.id}`)
   const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
   const dispatch = useDispatch();
   const deleteAnswer = () => dispatch(actions.problem.deleteAnswer({ id: answer.id }));
@@ -50,6 +49,48 @@ let AnswerOption = ({
     )
   }
 
+  const feedbackControl = ({ feedback, onChange, labelMessage, labelMessageBoldUnderline }) => (
+    <Form.Group>
+      <Form.Label className="mb-3">
+        <FormattedMessage
+          {...labelMessage}
+          values={{
+            answerId: answer.id,
+            boldunderline: <b><u><FormattedMessage {...labelMessageBoldUnderline} /></u></b>,
+          }}
+          />
+      </Form.Label>
+      <Form.Control
+        placeholder={intl.formatMessage(messages.feedbackPlaceholder)}
+        value={feedback}
+        onChange={onChange} />
+    </Form.Group>
+  )
+
+  const displayFeedbackControl = () => {
+    if (!(typeof answer.feedback === "undefined")) {
+      return feedbackControl({
+        feedback: answer.feedback,
+        onChange: (e) => setAnswer({feedback: e.target.value}),
+        labelMessage: messages.selectedFeedbackLabel,
+        labelMessageBoldUnderline: messages.selectedFeedbackLabelBoldUnderlineText
+      });
+    } else {
+      return [
+        feedbackControl({
+          feedback: answer.selectedFeedback,
+          onChange: (e) => setAnswer({selectedFeedback: e.target.value}),
+          labelMessage: messages.selectedFeedbackLabel,
+          labelMessageBoldUnderline: messages.selectedFeedbackLabelBoldUnderlineText}),
+        feedbackControl({
+          feedback: answer.unselectedFeedback,
+          onChange: (e) => setAnswer({unselectedFeedback: e.target.value}),
+          labelMessage: messages.unSelectedFeedbackLabel,
+          labelMessageBoldUnderline: messages.unSelectedFeedbackLabelBoldUnderlineText})
+      ]
+    }
+  }
+
   return (
     <Collapsible.Advanced
       open={isFeedbackVisible}
@@ -72,36 +113,7 @@ let AnswerOption = ({
 
           <Collapsible.Body>
             <div className="bg-dark-100 p-4 mt-3">
-              <Form.Group>
-                <Form.Label className="mb-3">
-                  <FormattedMessage
-                    {...messages.selectedFeedbackLabel}
-                    values={{
-                      answerId: answer.id,
-                      boldunderline: <b><u><FormattedMessage {...messages.selectedFeedbackLabelBoldUnderlineText} /></u></b>,
-                    }}
-                    />
-                </Form.Label>
-                <Form.Control
-                  placeholder={intl.formatMessage(messages.feedbackPlaceholder)}
-                  value={answer.selectedFeedback || ""}
-                  onChange={(e) => setAnswer({selectedFeedback: e.target.value})} />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label className="mb-3">
-                  <FormattedMessage
-                    {...messages.unSelectedFeedbackLabel}
-                    values={{
-                      answerId: answer.id,
-                      boldunderline: <b><u><FormattedMessage {...messages.unSelectedFeedbackLabelBoldUnderlineText} /></u></b>,
-                    }}
-                    />
-                </Form.Label>
-                <Form.Control
-                  placeholder={intl.formatMessage(messages.feedbackPlaceholder)}
-                  value={answer.unselectedFeedback || ""}
-                  onChange={(e) => setAnswer({unselectedFeedback: e.target.value})} />
-              </Form.Group>
+              {displayFeedbackControl()}
             </div>
           </Collapsible.Body>
         </Col>

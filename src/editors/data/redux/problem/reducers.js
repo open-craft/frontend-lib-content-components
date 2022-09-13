@@ -67,6 +67,10 @@ const problem = createSlice({
         return state;
       }
       state.answers = state.answers.filter(obj => obj.id !== id).map((answer, index) => {
+        const newId = alphabets[index];
+        if (answer.id === newId) {
+          return answer;
+        }
         return {...answer, id: alphabets[index]}
       });
     },
