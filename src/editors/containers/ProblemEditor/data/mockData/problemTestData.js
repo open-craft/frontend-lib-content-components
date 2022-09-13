@@ -143,3 +143,140 @@ export const dropdownWithFeedbackHints = {
 ||If you add more than one hint, a different hint appears each time learners select the hint button.||
 `
 }
+
+export const numericWithHints = {
+    problem: {
+        rawOLX: '<problem>\n    <numericalresponse answer="100">\n        <p>You can use this template as a guide to the simple editor markdown and OLX markup to use for numerical input with hints and feedback problems. Edit this component to replace this template with your own assessment.</p>\n        <label>Add the question text, or prompt, here. This text is required.</label>\n        <description>You can add an optional tip or note related to the prompt like this.</description>\n        <responseparam type="tolerance" default="5"/>\n        <formulaequationinput/>\n        <correcthint>You can specify optional feedback like this, which appears after this answer is submitted.</correcthint>\n    </numericalresponse>\n    <demandhint>\n        <hint>You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.</hint>\n        <hint>If you add more than one hint, a different hint appears each time learners select the hint button.</hint>\n    </demandhint>\n</problem>\n',
+        problemType: 'TEXTINPUT',
+        question: 'You can use this template as a guide to the simple editor markdown and OLX markup to use for numerical input with hints and feedback problems. Edit this component to replace this template with your own assessment.\n\n<p>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this. </p>\n\n',
+        answers: [
+          {
+            id: 0,
+            title: '100 +-5',
+            feedback: 'You can specify optional feedback like this, which appears after this answer is submitted.',
+            correct: true
+          },
+          {
+            id: 1,
+            title: '90 +-5',
+            feedback: 'You can specify optional feedback like this, which appears after this answer is submitted.',
+            correct: true
+          },
+          {
+            id: 2,
+            title: '60 +-5',
+            feedback: 'You can specify optional feedback like this, which appears after this answer is submitted.',
+            correct: false
+          }
+        ],
+        groupFeedbackList: [],
+        hints: [
+          {
+            id: 6,
+            value: 'You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.'
+          },
+          {
+            id: 7,
+            value: 'If you add more than one hint, a different hint appears each time learners select the hint button.'
+          }
+        ],
+        settings: {
+          scoring: {
+            advanced: false,
+            scoring: {
+              wieght: 0,
+              attempts: {
+                unlimited: true,
+                number: 0
+              }
+            }
+          },
+          randomization: '',
+          timeBetween: 0,
+          MatLabApiKey: '',
+          showAnswer: {
+            on: '',
+            afterAtempts: 1
+          },
+          showResetButton: false
+        }
+      },
+    markdown: `You can use this template as a guide to the simple editor markdown and OLX markup to use for numerical input with hints and feedback problems. Edit this component to replace this template with your own assessment.
+
+>>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this. <<
+=100 +-5 {{You can specify optional feedback like this, which appears after this answer is submitted.}}
+or=90 +-5 {{You can specify optional feedback like this, which appears after this answer is submitted.}}
+not=60 +-5 {{You can specify optional feedback like this, which appears after this answer is submitted.}}
+||You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.||
+||If you add more than one hint, a different hint appears each time learners select the hint button.||
+`,
+}
+
+export const textInputWithHints = {
+
+    problem: {
+        rawOLX: '<problem>\n    <stringresponse answer="the correct answer" type="ci">\n        <p>You can use this template as a guide to the simple editor markdown and OLX markup to use for text input with hints and feedback problems. Edit this component to replace this template with your own assessment.</p>\n        <label>Add the question text, or prompt, here. This text is required.</label>\n        <description>You can add an optional tip or note related to the prompt like this.</description>\n        <correcthint>You can specify optional feedback like this, which appears after this answer is submitted.</correcthint>\n        <additional_answer answer="optional acceptable variant of the correct answer"/>\n        <stringequalhint answer="optional incorrect answer such as a frequent misconception">You can specify optional feedback for none, a subset, or all of the answers.</stringequalhint>\n        <textline size="20"/>\n    </stringresponse>\n    <demandhint>\n        <hint>You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.</hint>\n        <hint>If you add more than one hint, a different hint appears each time learners select the hint button.</hint>\n    </demandhint>\n</problem>\n',
+        problemType: 'TEXTINPUT',
+        question: 'You can use this template as a guide to the simple editor markdown and OLX markup to use for text input with hints and feedback problems. Edit this component to replace this template with your own assessment.\n\n<p>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this. </p>\n\n',
+        answers: [
+          {
+            id: 0,
+            title: 'the correct answer',
+            feedback: 'You can specify optional feedback like this, which appears after this answer is submitted.',
+            correct: true
+          },
+          {
+            id: 1,
+            title: 'optional acceptable variant of the correct answer',
+            feedback: '',
+            correct: true
+          },
+          {
+            id: 2,
+            title: 'optional incorrect answer such as a frequent misconception',
+            feedback: 'You can specify optional feedback for none, a subset, or all of the answers.',
+            correct: false
+          }
+        ],
+        groupFeedbackList: [],
+        hints: [
+          {
+            id: 9,
+            value: 'You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.'
+          },
+          {
+            id: 10,
+            value: 'If you add more than one hint, a different hint appears each time learners select the hint button.'
+          }
+        ],
+        settings: {
+          scoring: {
+            advanced: false,
+            scoring: {
+              wieght: 0,
+              attempts: {
+                unlimited: true,
+                number: 0
+              }
+            }
+          },
+          randomization: '',
+          timeBetween: 0,
+          MatLabApiKey: '',
+          showAnswer: {
+            on: '',
+            afterAtempts: 1
+          },
+          showResetButton: false
+        }
+      },
+    markdown: `You can use this template as a guide to the simple editor markdown and OLX markup to use for text input with hints and feedback problems. Edit this component to replace this template with your own assessment.
+
+>>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this. <<
+=the correct answer {{You can specify optional feedback like this, which appears after this answer is submitted.}}
+or=optional acceptable variant of the correct answer
+not=optional incorrect answer such as a frequent misconception {{You can specify optional feedback for none, a subset, or all of the answers.}}
+||You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.||
+||If you add more than one hint, a different hint appears each time learners select the hint button.||
+`
+}

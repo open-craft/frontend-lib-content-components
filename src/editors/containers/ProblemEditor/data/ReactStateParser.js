@@ -104,18 +104,19 @@ export class ReactStateParser{
             let answerObject = answers[answer];
             let answerContent = answerObject.title;
             let answerFeedback = answerObject?.feedback;
+            let answerOptionString = ''
             if (answerObject.correct && !correctAnswer) {
-                answerString += `=${answerContent}`;
+                answerOptionString += `=${answerContent}`;
                 correctAnswer = true;
             } else if (answerObject.correct && correctAnswer) {
-                answerString += `or=${answerContent}`;
+                answerOptionString += `or=${answerContent}`;
             } else if (!answerObject.correct){
-                answerString += `not=${answerContent}`;
+                answerOptionString += `not=${answerContent}`;
             }
-            if (answerFeedback !== '' || answerFeedback !== undefined){
-                answerString += ` {{${answerFeedback}}}`;
+            if (answerFeedback.trim() !== '' && answerFeedback !== undefined){
+                answerOptionString += ` {{${answerFeedback}}}`;
             }
-            answerString += `${answerString}\n`;
+            answerString += `${answerOptionString}\n`;
         }
         return answerString;
     }

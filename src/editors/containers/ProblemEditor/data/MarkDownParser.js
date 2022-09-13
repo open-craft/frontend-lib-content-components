@@ -86,7 +86,7 @@ function getShortAnswerOptions(markdown) {
         problemType = isFinite(answer) ? ProblemTypeKeys.NUMERIC : ProblemTypeKeys.TEXTINPUT;
         shortAnswersList.push({
           id: shortAnswersList.length,
-          value: answer,
+          title: answer,
           feedback,
           correct,
         });
