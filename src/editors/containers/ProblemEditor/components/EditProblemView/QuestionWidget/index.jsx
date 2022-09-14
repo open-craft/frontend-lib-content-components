@@ -11,8 +11,9 @@ export default function QuestionWidget() {
   const { editorRef, refReady, setEditorRef } = hooks.prepareEditorRef();
   const updateQuestionState = (dispatch, editorRef) => {
     return (e) => {
-      let content = editorRef.current.getContent();
-      console.log(content);
+      // Only the question is recorded so everything becomes a question
+      // TODO: The support for lable and description and normal text.
+      let content = editorRef.current.getContent({format: 'text'});
       dispatch(actions.problem.updateQuestion(content));
     }
   }
