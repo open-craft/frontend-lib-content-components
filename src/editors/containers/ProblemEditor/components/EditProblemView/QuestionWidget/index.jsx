@@ -11,7 +11,6 @@ export default function QuestionWidget() {
   const { editorRef, refReady, setEditorRef } = hooks.prepareEditorRef();
   const updateQuestionState = (dispatch, editorRef) => {
     return (e) => {
-      debugger;
       let content = editorRef.current.getContent();
       console.log(content);
       dispatch(actions.problem.updateQuestion(content));

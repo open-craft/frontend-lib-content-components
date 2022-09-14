@@ -7,7 +7,7 @@ Changes have been made to adapt the parser with respect to our use case.
 
 import { ProblemTypeKeys } from "../../../data/constants/problem";
 
-export const groupFeedbackWordMapping = [...Array(26)].map((val, i) => String.fromCharCode(i + 65));
+export const indexToLetterMap = [...Array(26)].map((val, i) => String.fromCharCode(i + 65));
 
 function getHints(markdown) {
   if (!markdown || !markdown.trim()) {
@@ -85,7 +85,7 @@ function getShortAnswerOptions(markdown) {
       if (answer) {
         problemType = isFinite(answer) ? ProblemTypeKeys.NUMERIC : ProblemTypeKeys.TEXTINPUT;
         shortAnswersList.push({
-          id: shortAnswersList.length,
+          id: indexToLetterMap[shortAnswersList.length],
           title: answer,
           feedback,
           correct,
@@ -138,7 +138,7 @@ function getMultipleChoiceOptions(markdown) {
         }
       }
       multipleChoiceOptions.push({
-        id: multipleChoiceOptions.length,
+        id: indexToLetterMap[multipleChoiceOptions.length],
         title,
         correct: !row.startsWith('[ ]'),
         selectedFeedback,
@@ -155,8 +155,8 @@ function getMultipleChoiceOptions(markdown) {
         const groupChoices = [];
         for (const i in group) {
           const letter = group[i];
-          if (multipleChoiceOptions[groupFeedbackWordMapping.indexOf(letter)]) {
-            groupChoices.push(multipleChoiceOptions[groupFeedbackWordMapping.indexOf(letter)].id);
+          if (multipleChoiceOptions[indexToLetterMap.indexOf(letter)]) {
+            groupChoices.push(multipleChoiceOptions[indexToLetterMap.indexOf(letter)].id);
           }
         }
         feedback = row.slice(groupEnd + 2, groupFeedbackEnd).trim();
@@ -207,7 +207,7 @@ function getSingleChoiceOptions(markdown) {
         }
         const correct = true;
         singleChoiceOptions.push({
-          id: singleChoiceOptions.length,
+          id: indexToLetterMap[singleChoiceOptions.length],
           title,
           correct,
           feedback,
@@ -227,7 +227,7 @@ function getSingleChoiceOptions(markdown) {
         }
         const correct = false;
         singleChoiceOptions.push({
-          id: singleChoiceOptions.length,
+          id: indexToLetterMap[singleChoiceOptions.length],
           title,
           correct,
           feedback,
@@ -244,7 +244,7 @@ function getSingleChoiceOptions(markdown) {
       }
       const correct = !!row.startsWith('(x)');
       singleChoiceOptions.push({
-        id: singleChoiceOptions.length,
+        id: indexToLetterMap[singleChoiceOptions.length],
         title,
         correct,
         feedback,
