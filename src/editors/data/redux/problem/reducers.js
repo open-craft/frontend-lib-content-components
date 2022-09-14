@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { indexToLetterMap } from '../../../containers/ProblemEditor/data/MarkDownParser';
 import { StrictDict } from '../../../utils';
 
-const alphabets = [...Array(26).keys()].map(i => String.fromCharCode(i + 65));
 const nextAlphaId = (lastId) => String.fromCharCode(lastId.charCodeAt(0) + 1)
 const initialState = {
   rawOLX: '',
@@ -67,16 +67,16 @@ const problem = createSlice({
         return state;
       }
       state.answers = state.answers.filter(obj => obj.id !== id).map((answer, index) => {
-        const newId = alphabets[index];
+        const newId = indexToLetterMap[index];
         if (answer.id === newId) {
           return answer;
         }
-        return {...answer, id: alphabets[index]}
+        return {...answer, id: newId}
       });
     },
     addAnswer: (state) => {
       const currAnswers = state.answers;
-      if (currAnswers.length >= alphabets.length) {
+      if (currAnswers.length >= indexToLetterMap.length) {
         return state;
       }
       const [firstAnswer] = currAnswers;
@@ -98,11 +98,6 @@ const problem = createSlice({
         ...currAnswers,
         newOption,
       ]
-    },
-    resetAnswerIds:  (state) => {
-      state.answers = state.answers.map((answer, index) => {
-        return {...answer, id: alphabets[index]}
-      });
     },
     load: (state, { payload }) => ({
       ...state,

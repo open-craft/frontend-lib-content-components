@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button } from '@edx/paragon';
 import { Add } from '@edx/paragon/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,9 +13,6 @@ export const hooks = {
     const answers = useSelector(selectors.problem.answers);
     const dispatch = useDispatch();
     const hasSingleAnswer = problemType === ProblemTypeKeys.DROPDOWN || problemType === ProblemTypeKeys.SINGLESELECT;
-    useEffect(() => {
-      dispatch(actions.problem.resetAnswerIds());
-    }, [])
     return {answers, hasSingleAnswer, dispatch};
   },
   displayAnswers: ({
