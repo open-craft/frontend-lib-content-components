@@ -29,7 +29,7 @@ export const hooks = {
         answer={answer} />
     });
   },
-  addAnswer: ({dispatch, hasSingleAnswer}) => dispatch(actions.problem.addAnswer({hasSingleAnswer})),
+  addAnswer: ({dispatch}) => dispatch(actions.problem.addAnswer()),
 }
 
 export const AnswersContainer = ({
@@ -37,7 +37,7 @@ export const AnswersContainer = ({
   problemType,
 }) => {
   const {answers, hasSingleAnswer, dispatch} = hooks.initialize(problemType);
-  const addAnswer = () => hooks.addAnswer({dispatch, hasSingleAnswer});
+  const addAnswer = () => hooks.addAnswer({dispatch});
 
   return (
     <div>

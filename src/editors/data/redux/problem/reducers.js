@@ -74,12 +74,12 @@ const problem = createSlice({
         return {...answer, id: alphabets[index]}
       });
     },
-    addAnswer: (state, { payload }) => {
-      const { hasSingleAnswer } = payload;
+    addAnswer: (state) => {
       const currAnswers = state.answers;
       if (currAnswers.length >= alphabets.length) {
         return state;
       }
+      const [firstAnswer] = currAnswers;
       const newOption = {
         id: currAnswers.length ? nextAlphaId(currAnswers[currAnswers.length - 1].id) : "A",
         title: "",
@@ -88,7 +88,7 @@ const problem = createSlice({
         feedback: undefined,
         correct: false,
       };
-      if (hasSingleAnswer) {
+      if (typeof firstAnswer.feedback !== "undefined") {
         newOption.feedback = "";
       } else {
         newOption.selectedFeedback = "";

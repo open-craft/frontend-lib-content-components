@@ -68,7 +68,7 @@ let AnswerOption = ({
   )
 
   const displayFeedbackControl = () => {
-    if (!(typeof answer.feedback === "undefined")) {
+    if (typeof answer.feedback !== "undefined") {
       return feedbackControl({
         feedback: answer.feedback,
         onChange: (e) => setAnswer({feedback: e.target.value}),
