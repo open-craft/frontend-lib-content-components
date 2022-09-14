@@ -22,12 +22,15 @@ let AnswerOption = ({
 
   useEffect(() => {
     // show feedback fields if feedback is present
-    setIsFeedbackVisible(!!answer.selectedFeedback || !!answer.unselectedFeedback || !!answer.feedback);
-  }, [])
+    setIsFeedbackVisible(isVisible => (
+      !!answer.selectedFeedback || !!answer.unselectedFeedback || !!answer.feedback || isVisible
+    ));
+  }, [answer])
 
   const toggleFeedback = (open) => {
     // do not allow to hide if feedback is added
     if (!!answer.selectedFeedback || !!answer.unselectedFeedback || !!answer.feedback) {
+      setIsFeedbackVisible(true);
       return;
     }
     setIsFeedbackVisible(open);
