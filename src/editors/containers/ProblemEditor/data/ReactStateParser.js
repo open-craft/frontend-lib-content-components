@@ -32,19 +32,21 @@ export class ReactStateParser{
         let answerString = '';
         let answers = this.problemState.answers;
         for (const answer in answers){
+            let answerOptionString = '';
             let answerObject = answers[answer];
             let answerContent = answerObject.title;
             let answerFeedback = answerObject?.feedback;
             if (answerObject.correct) {
-                answerString += ` (${answerContent})`
+                answerOptionString += ` (${answerContent})`
             } else {
-                answerString += ` ${answerContent}`
+                answerOptionString += ` ${answerContent}`
             }
             if (answerFeedback !== undefined && answerFeedback.trim() !== ''){
-                answerString += ` {{${answerFeedback}}}`
+                answerOptionString += ` {{${answerFeedback}}}`
             }
+            answerString += `${answerOptionString}\n`
         }
-        answerString = `[[${answerString}]]\n`;
+        answerString = `[[\n${answerString}]]\n`;
         return answerString;
     }
 

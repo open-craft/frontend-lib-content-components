@@ -138,7 +138,11 @@ export const dropdownWithFeedbackHints = {
     },
     markdown: `You can use this template as a guide to the simple editor markdown and OLX markup to use for dropdown with hints and feedback problems. Edit this component to replace this template with your own assessment.
 >>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this. <<
-[[ an incorrect answer {{You can specify optional feedback like this, which appears after this answer is submitted.}} (the correct answer) an incorrect answer {{You can specify optional feedback for none, a subset, or all of the answers.}}]]
+[[
+ an incorrect answer {{You can specify optional feedback like this, which appears after this answer is submitted.}}
+ (the correct answer)
+ an incorrect answer {{You can specify optional feedback for none, a subset, or all of the answers.}}
+]]
 ||You can add an optional hint like this. Problems that have a hint include a hint button, and this text appears the first time learners select the button.||
 ||If you add more than one hint, a different hint appears each time learners select the hint button.||
 `
