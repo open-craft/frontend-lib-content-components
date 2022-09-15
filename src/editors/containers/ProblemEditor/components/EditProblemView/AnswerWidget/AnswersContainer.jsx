@@ -1,44 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Button } from '@edx/paragon';
 import { Add } from '@edx/paragon/icons';
-import { useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage } from '@edx/frontend-platform/i18n';
 
 import messages from './messages';
-import AnswerOption from './AnswerOption';
+import { initializeAnswerContainer } from '../../../hooks';
 import { actions, selectors } from '../../../../../data/redux';
 import { ProblemTypeKeys } from '../../../../../data/constants/problem';
-
-export const hooks = {
-  initialize: (problemType) => {
-    const answers = useSelector(selectors.problem.answers);
-    const dispatch = useDispatch();
-    const hasSingleAnswer = problemType === ProblemTypeKeys.DROPDOWN || problemType === ProblemTypeKeys.SINGLESELECT;
-    return { answers, hasSingleAnswer, dispatch };
-  },
-  displayAnswers: ({
-    hasSingleAnswer,
-    answers,
-  }) => answers.map((answer) => (
-    <AnswerOption
-      key={answer.id}
-      hasSingleAnswer={hasSingleAnswer}
-      answer={answer}
-    />
-  )),
-  addAnswer: ({ dispatch }) => dispatch(actions.problem.addAnswer()),
-};
+import { answerOptionProps } from '../../../../../data/services/cms/types';
+import AnswerOption from './AnswerOption';
 
 export const AnswersContainer = ({
-  // Redux
   problemType,
+  // Redux
+  answers,
+  addAnswer,
 }) => {
-  const { answers, hasSingleAnswer, dispatch } = hooks.initialize(problemType);
-  const addAnswer = () => hooks.addAnswer({ dispatch });
+  const { hasSingleAnswer } = initializeAnswerContainer(problemType);
 
   return (
     <div>
-      {hooks.displayAnswers({ hasSingleAnswer, answers })}
+      {answers.map((answer) => (
+        <AnswerOption
+          key={answer.id}
+          hasSingleAnswer={hasSingleAnswer}
+          answer={answer}
+        />
+      ))}
       <Button
         className="my-3 ml-2"
         iconBefore={Add}
@@ -53,5 +43,15 @@ export const AnswersContainer = ({
 
 AnswersContainer.propTypes = {
   problemType: ProblemTypeKeys.isRequired,
+  answers: PropTypes.arrayOf(answerOptionProps).isRequired,
 };
-export default AnswersContainer;
+
+export const mapStateToProps = (state) => ({
+  answers: selectors.problem.answers(state),
+});
+
+export const mapDispatchToProps = {
+  addAnswer: actions.problem.addAnswer,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnswersContainer);

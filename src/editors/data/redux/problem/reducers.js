@@ -1,3 +1,4 @@
+import { has, isUndefined } from "lodash";
 import { createSlice } from '@reduxjs/toolkit';
 import { indexToLetterMap } from '../../../containers/ProblemEditor/data/MarkDownParser';
 import { StrictDict } from '../../../utils';
@@ -55,7 +56,7 @@ const problem = createSlice({
         }
         // set other answers as incorrect if problem only has one answer correct
         // and changes object include correct key change
-        if (hasSingleAnswer && 'correct' in answer && obj.correct) {
+        if (hasSingleAnswer && has(answer, 'correct') && obj.correct) {
           return { ...obj, correct: false };
         }
         return obj;
@@ -88,11 +89,11 @@ const problem = createSlice({
         feedback: undefined,
         correct: false,
       };
-      if (typeof firstAnswer.feedback !== 'undefined') {
-        newOption.feedback = '';
-      } else {
+      if (isUndefined(firstAnswer.feedback)) {
         newOption.selectedFeedback = '';
         newOption.unselectedFeedback = '';
+      } else {
+        newOption.feedback = '';
       }
       state.answers = [
         ...currAnswers,

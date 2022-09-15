@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
+import { isUndefined } from 'lodash-es';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -25,14 +26,14 @@ let AnswerOption = ({
   const setAnswer = (payload) => updateAnswer({ id: answer.id, hasSingleAnswer, ...payload });
 
   useEffect(() => {
-    // show feedback fields if feedback is present
+    // Show feedback fields if feedback is present
     setIsFeedbackVisible(isVisible => (
       !!answer.selectedFeedback || !!answer.unselectedFeedback || !!answer.feedback || isVisible
     ));
   }, [answer]);
 
   const toggleFeedback = (open) => {
-    // do not allow to hide if feedback is added
+    // Do not allow to hide if feedback is added
     if (!!answer.selectedFeedback || !!answer.unselectedFeedback || !!answer.feedback) {
       setIsFeedbackVisible(true);
       return;
@@ -79,7 +80,7 @@ let AnswerOption = ({
   );
 
   const displayFeedbackControl = () => {
-    if (typeof answer.feedback !== 'undefined') {
+    if (!isUndefined(answer.feedback)) {
       return feedbackControl({
         feedback: answer.feedback,
         onChange: (e) => setAnswer({ feedback: e.target.value }),
