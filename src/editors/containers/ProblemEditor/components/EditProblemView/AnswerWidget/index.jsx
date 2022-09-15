@@ -2,8 +2,7 @@ import React from 'react';
 import { FormattedMessage } from '@edx/frontend-platform/i18n';
 
 import messages from './messages';
-import { ProblemTypeKeys } from '../../../../../../../dist/editors/data/constants/problem';
-import { ProblemTypes } from '../../../../../data/constants/problem';
+import { ProblemTypeKeys, ProblemTypes } from '../../../../../data/constants/problem';
 import AnswersContainer from './AnswersContainer';
 
 // This widget should be connected, grab all answers from store, update them as needed.

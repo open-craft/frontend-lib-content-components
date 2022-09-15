@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnswerOption render snapshot: renders correct option with feedback 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;
+
+exports[`AnswerOption render snapshot: renders correct option with selected unselected feedback 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;

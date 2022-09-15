@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ProblemTypes } from '../../constants/problem'
+import { ProblemTypes } from '../../constants/problem';
 
 export const videoDataProps = {
   videoSource: PropTypes.string,
@@ -31,8 +31,7 @@ export const answerOptionProps = PropTypes.shape({
   feedback: PropTypes.string,
   selectedFeedback: PropTypes.string,
   unselectedFeedback: PropTypes.string,
-  answer: PropTypes.string,
-})
+});
 
 export const problemDataProps = {
   rawOLX: PropTypes.string,
@@ -64,9 +63,8 @@ export const problemDataProps = {
   }),
 };
 
-
 export default {
   videoDataProps,
   problemDataProps,
-  answerOptionProps
+  answerOptionProps,
 };

@@ -1,11 +1,11 @@
 import React, { memo, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   Col, Collapsible, Icon, IconButton, Form, Row,
 } from '@edx/paragon';
 import { AddComment, Delete } from '@edx/paragon/icons';
 import { FormattedMessage, injectIntl, intlShape } from '@edx/frontend-platform/i18n';
-import { useDispatch } from 'react-redux';
 
 import messages from './messages';
 import { actions } from '../../../../../data/redux';
@@ -16,11 +16,13 @@ let AnswerOption = ({
   hasSingleAnswer,
   // injected
   intl,
+  // redux
+  deleteAnswer,
+  updateAnswer,
 }) => {
   const [isFeedbackVisible, setIsFeedbackVisible] = useState(false);
-  const dispatch = useDispatch();
-  const deleteAnswer = () => dispatch(actions.problem.deleteAnswer({ id: answer.id }));
-  const setAnswer = (payload) => dispatch(actions.problem.updateAnswer({ id: answer.id, hasSingleAnswer, ...payload }));
+  const removeAnswer = () => deleteAnswer({ id: answer.id });
+  const setAnswer = (payload) => updateAnswer({ id: answer.id, hasSingleAnswer, ...payload });
 
   useEffect(() => {
     // show feedback fields if feedback is present
@@ -142,7 +144,7 @@ let AnswerOption = ({
             src={Delete}
             iconAs={Icon}
             alt={intl.formatMessage(messages.answerDeleteIconAltText)}
-            onClick={deleteAnswer}
+            onClick={removeAnswer}
             variant="primary"
           />
         </Col>
@@ -158,6 +160,14 @@ AnswerOption.propTypes = {
   hasSingleAnswer: PropTypes.bool.isRequired,
   // injected
   intl: intlShape.isRequired,
+  // redux
+  deleteAnswer: PropTypes.func.isRequired,
+  updateAnswer: PropTypes.func.isRequired,
 };
 
-export default injectIntl(AnswerOption);
+export const mapStateToProps = () => ({});
+export const mapDispatchToProps = {
+  deleteAnswer: actions.problem.deleteAnswer,
+  updateAnswer: actions.problem.updateAnswer,
+};
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(AnswerOption));
