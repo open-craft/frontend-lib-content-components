@@ -128,7 +128,7 @@ export class ReactStateParser{
         if (!_.isEmpty(groupFeedbackArray)){
             for (const groupFeeback in groupFeedbackArray) {
                 let answers = groupFeedbackArray[groupFeeback].answers;
-                let options = `(( ${answers.map((ele)=> {return indexToLetterMap[ele]}).join(" ")} ))`;
+                let options = `(( ${answers.join(" ")} ))`;
                 feedbackString += `{{ ${options} ${groupFeedbackArray[groupFeeback].feedback} }}\n`;
             }
         }

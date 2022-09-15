@@ -5,28 +5,28 @@ export const checklistWithFeebackHints = {
       question: 'You can use this template as a guide to the simple editor markdown and OLX markup to use for checkboxes with hints and feedback problems. Edit this component to replace this template with your own assessment.\n\n<p>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this.</p>\n\n',
       answers: [
         {
-          id: 0,
+          id: 'A',
           title: 'a correct answer',
           correct: true,
           selectedFeedback: ' You can specify optional feedback that appears after the learner selects and submits this answer.',
           unselectedFeedback: 'You can specify optional feedback that appears after the learner clears and submits this answer.'
         },
         {
-          id: 1,
+          id: 'B',
           title: 'an incorrect answer',
           correct: false,
           selectedFeedback: '',
           unselectedFeedback: ''
         },
         {
-          id: 2,
+          id: 'C',
           title: 'an incorrect answer',
           correct: false,
           selectedFeedback: ' You can specify optional feedback for none, all, or a subset of the answers.',
           unselectedFeedback: 'You can specify optional feedback for selected answers, cleared answers, or both.'
         },
         {
-          id: 3,
+          id: 'D',
           title: 'a correct answer',
           correct: true,
           selectedFeedback: '',
@@ -37,19 +37,19 @@ export const checklistWithFeebackHints = {
         {
           id: 3,
           answers: [
-            0,
-            1,
-            3
+            "A",
+            "B",
+            "D"
           ],
           feedback: 'You can specify optional feedback for a combination of answers which appears after the specified set of answers is submitted.'
         },
         {
           id: 4,
           answers: [
-            0,
-            1,
-            2,
-            3
+            "A",
+            "B",
+            "C",
+            "D"
           ],
           feedback: 'You can specify optional feedback for one, several, or all answer combinations.'
         }
@@ -106,19 +106,19 @@ export const dropdownWithFeedbackHints = {
         question: 'You can use this template as a guide to the simple editor markdown and OLX markup to use for dropdown with hints and feedback problems. Edit this component to replace this template with your own assessment.\n<p>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this. </p>\n',
         answers: [
         {
-            id: 0,
+            id: 'A',
             title: 'an incorrect answer',
             correct: false,
             feedback: 'You can specify optional feedback like this, which appears after this answer is submitted.'
         },
         {
-            id: 1,
+            id: 'B',
             title: 'the correct answer',
             correct: true,
             feedback: ''
         },
         {
-            id: 2,
+            id: 'C',
             title: 'an incorrect answer',
             correct: false,
             feedback: 'You can specify optional feedback for none, a subset, or all of the answers.'
@@ -151,19 +151,19 @@ export const numericWithHints = {
         question: 'You can use this template as a guide to the simple editor markdown and OLX markup to use for numerical input with hints and feedback problems. Edit this component to replace this template with your own assessment.\n\n<p>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this. </p>\n\n',
         answers: [
           {
-            id: 0,
+            id: 'A',
             title: '100 +-5',
             feedback: 'You can specify optional feedback like this, which appears after this answer is submitted.',
             correct: true
           },
           {
-            id: 1,
+            id: 'B',
             title: '90 +-5',
             feedback: 'You can specify optional feedback like this, which appears after this answer is submitted.',
             correct: true
           },
           {
-            id: 2,
+            id: 'C',
             title: '60 +-5',
             feedback: 'You can specify optional feedback like this, which appears after this answer is submitted.',
             correct: false
@@ -219,19 +219,19 @@ export const textInputWithHints = {
         question: 'You can use this template as a guide to the simple editor markdown and OLX markup to use for text input with hints and feedback problems. Edit this component to replace this template with your own assessment.\n\n<p>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this. </p>\n\n',
         answers: [
           {
-            id: 0,
+            id: 'A',
             title: 'the correct answer',
             feedback: 'You can specify optional feedback like this, which appears after this answer is submitted.',
             correct: true
           },
           {
-            id: 1,
+            id: 'B',
             title: 'optional acceptable variant of the correct answer',
             feedback: '',
             correct: true
           },
           {
-            id: 2,
+            id: 'C',
             title: 'optional incorrect answer such as a frequent misconception',
             feedback: 'You can specify optional feedback for none, a subset, or all of the answers.',
             correct: false
@@ -287,25 +287,25 @@ export const sigleSelectWithHints = {
         question: 'You can use this template as a guide to the simple editor markdown and OLX markup to use for checkboxes with hints and feedback problems. Edit this component to replace this template with your own assessment.\n\n<p>Add the question text, or prompt, here. This text is required.||You can add an optional tip or note related to the prompt like this.</p>\n\n',
         answers: [
           {
-            id: 0,
+            id: 'A',
             title: 'a correct answer',
             correct: true,
             feedback: 'Some new feedback'
           },
           {
-            id: 1,
+            id: 'B',
             title: 'an incorrect answer',
             correct: false,
             feedback: ''
           },
           {
-            id: 2,
+            id: 'C',
             title: 'an incorrect answer',
             correct: false,
             feedback: 'Wrong feedback'
           },
           {
-            id: 3,
+            id: 'D',
             title: 'an incorrect answer again',
             correct: false,
             feedback: ''
