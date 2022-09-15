@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'enzyme';
+import { shallow } from 'enzyme';
 import { formatMessage } from '../../../../../../testUtils';
 import AnswerOption from './AnswerOption';
 
@@ -41,10 +41,10 @@ const props = {
 describe('AnswerOption', () => {
   describe('render', () => {
     test('snapshot: renders correct option with feedback', () => {
-      expect(render(<AnswerOption {...props} />)).toMatchSnapshot();
+      expect(shallow(<AnswerOption {...props} />)).toMatchSnapshot();
     });
     test('snapshot: renders correct option with selected unselected feedback', () => {
-      expect(render(<AnswerOption {...props} answer={answerWithSelectedUnselectedFeedback} />)).toMatchSnapshot();
+      expect(shallow(<AnswerOption {...props} answer={answerWithSelectedUnselectedFeedback} />)).toMatchSnapshot();
     });
   });
 });
