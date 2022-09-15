@@ -3,20 +3,15 @@ import { Editor } from '@tinymce/tinymce-react';
 import { selectors, actions } from '../../../../../data/redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as hooks from '../../../hooks';
+import { injectIntl } from '@edx/frontend-platform/i18n';
+import { connect } from 'react-redux';
 
 // This widget should be connected, grab all questions from store, update them as needed.
-export default function QuestionWidget() {
-  const question = useSelector(selectors.problem.question);
-  const dispatch = useDispatch();
+export const QuestionWidget = ({
+  question,
+  updateQuestion
+}) => {
   const { editorRef, refReady, setEditorRef } = hooks.prepareEditorRef();
-  const updateQuestionState = (dispatch, editorRef) => {
-    return () => {
-      // Only the question is recorded so everything becomes a question
-      // TODO: The support for lable and description and normal text.
-      let content = editorRef.current.getContent({format: 'text'});
-      dispatch(actions.problem.updateQuestion(content));
-    }
-  }
   if (!refReady) { return null; }
   return (
     <div>
@@ -29,11 +24,20 @@ export default function QuestionWidget() {
             setEditorRef,
             editorRef,
             question,
-            dispatch,
-            updateQuestionState,
+            updateQuestion
           })
         }/>
       </div>
     </div>
   );
 }
+
+export const mapStateToProps = (state) => ({
+  question: selectors.problem.question(state),
+});
+
+export const mapDispatchToProps = {
+  updateQuestion:actions.problem.updateQuestion,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(QuestionWidget));

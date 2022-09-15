@@ -10,14 +10,16 @@ export const problemEditorConfig = ({
     setEditorRef,
     editorRef,
     question,
-    dispatch,
-    updateQuestionState
+    updateQuestion
   }) => ({
     onInit: (evt, editor) => {
       setEditorRef(editor);
     },
     initialValue: question ? question : '',
-    onFocusOut:updateQuestionState(dispatch, editorRef),
+    onFocusOut: () =>{
+      let content = editorRef.current.getContent({format: 'text'});
+      updateQuestion(content);
+    },
   });
 
   export const prepareEditorRef = () => {
