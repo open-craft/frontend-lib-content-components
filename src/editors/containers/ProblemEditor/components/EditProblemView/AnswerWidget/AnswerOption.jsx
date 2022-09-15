@@ -12,7 +12,7 @@ import messages from './messages';
 import { actions } from '../../../../../data/redux';
 import { answerOptionProps } from '../../../../../data/services/cms/types';
 
-let AnswerOption = ({
+export let AnswerOption = ({
   answer,
   hasSingleAnswer,
   // injected
@@ -59,9 +59,9 @@ let AnswerOption = ({
   };
 
   const feedbackControl = ({
-    feedback, onChange, labelMessage, labelMessageBoldUnderline,
+    feedback, onChange, labelMessage, labelMessageBoldUnderline, key
   }) => (
-    <Form.Group>
+    <Form.Group key={key}>
       <Form.Label className="mb-3">
         <FormattedMessage
           {...labelMessage}
@@ -82,6 +82,7 @@ let AnswerOption = ({
   const displayFeedbackControl = () => {
     if (!isUndefined(answer.feedback)) {
       return feedbackControl({
+        key: `feedback-${answer.id}`,
         feedback: answer.feedback,
         onChange: (e) => setAnswer({ feedback: e.target.value }),
         labelMessage: messages.selectedFeedbackLabel,
@@ -90,12 +91,14 @@ let AnswerOption = ({
     }
     return [
       feedbackControl({
+        key: `selectedfeedback-${answer.id}`,
         feedback: answer.selectedFeedback,
         onChange: (e) => setAnswer({ selectedFeedback: e.target.value }),
         labelMessage: messages.selectedFeedbackLabel,
         labelMessageBoldUnderline: messages.selectedFeedbackLabelBoldUnderlineText,
       }),
       feedbackControl({
+        key: `unselectedfeedback-${answer.id}`,
         feedback: answer.unselectedFeedback,
         onChange: (e) => setAnswer({ unselectedFeedback: e.target.value }),
         labelMessage: messages.unSelectedFeedbackLabel,
