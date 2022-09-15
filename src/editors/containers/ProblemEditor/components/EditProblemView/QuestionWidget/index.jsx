@@ -3,8 +3,9 @@ import { Editor } from '@tinymce/tinymce-react';
 import { selectors, actions } from '../../../../../data/redux';
 import { useSelector, useDispatch } from 'react-redux';
 import * as hooks from '../../../hooks';
-import { injectIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, FormattedMessage } from '@edx/frontend-platform/i18n';
 import { connect } from 'react-redux';
+import { messages } from './messages';
 
 // This widget should be connected, grab all questions from store, update them as needed.
 export const QuestionWidget = ({
@@ -17,7 +18,7 @@ export const QuestionWidget = ({
     <div>
       <div>
         <h1>
-          Question
+          <FormattedMessage {...messages.questionWidgetTitle}/>
         </h1>
         <Editor {
           ...hooks.problemEditorConfig({
