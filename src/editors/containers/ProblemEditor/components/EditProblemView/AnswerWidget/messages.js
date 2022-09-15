@@ -1,4 +1,14 @@
 export const messages = {
+  answerWidgetTitle: {
+    id: 'authoring.answerwidget.answer.answerWidgetTitle',
+    defaultMessage: 'Answers',
+    description: 'Main title for Answers widget',
+  },
+  addAnswerButtonText: {
+    id: 'authoring.answerwidget.answer.addAnswerButton',
+    defaultMessage: 'Add answer',
+    description: 'Button text to add answer',
+  },
   answerTextboxPlaceholder: {
     id: 'authoring.answerwidget.answer.placeholder',
     defaultMessage: 'Enter an answer',
@@ -42,4 +52,3 @@ export const messages = {
 };
 
 export default messages;
-

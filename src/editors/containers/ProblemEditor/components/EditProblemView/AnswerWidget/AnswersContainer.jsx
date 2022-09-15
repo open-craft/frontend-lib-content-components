@@ -2,7 +2,9 @@ import React from 'react';
 import { Button } from '@edx/paragon';
 import { Add } from '@edx/paragon/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { FormattedMessage } from '@edx/frontend-platform/i18n';
 
+import messages from './messages';
 import AnswerOption from './AnswerOption';
 import { actions, selectors } from '../../../../../data/redux';
 import { ProblemTypeKeys } from '../../../../../data/constants/problem';
@@ -43,10 +45,13 @@ export const AnswersContainer = ({
         variant="tertiary"
         onClick={addAnswer}
       >
-        Add answer
+        <FormattedMessage {...messages.addAnswerButtonText} />
       </Button>
     </div>
   );
 };
 
+AnswersContainer.propTypes = {
+  problemType: ProblemTypeKeys.isRequired,
+};
 export default AnswersContainer;
