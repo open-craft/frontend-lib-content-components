@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { indexToLetterMap } from '../../../containers/ProblemEditor/data/MarkDownParser';
 import { StrictDict } from '../../../utils';
 
-const nextAlphaId = (lastId) => String.fromCharCode(lastId.charCodeAt(0) + 1)
+const nextAlphaId = (lastId) => String.fromCharCode(lastId.charCodeAt(0) + 1);
 const initialState = {
   rawOLX: '',
   problemType: 'SINGLESELECT',
   question: '',
   answers: [],
   groupFeedbackList: [],
-  settings:{
+  settings: {
     scoring: {
       advanced: false,
       scoring: {
@@ -43,7 +43,7 @@ const problem = createSlice({
     }),
     updateQuestion: (state, { payload }) => ({
       ...state,
-      question: payload
+      question: payload,
     }),
     updateAnswer: (state, { payload }) => {
       // you can mutuate state only inside creating
@@ -51,12 +51,12 @@ const problem = createSlice({
       const { id, hasSingleAnswer, ...answer } = payload;
       state.answers = state.answers.map(obj => {
         if (obj.id === id) {
-          return {...obj, ...answer};
+          return { ...obj, ...answer };
         }
         // set other answers as incorrect if problem only has one answer correct
         // and changes object include correct key change
-        if (hasSingleAnswer && "correct" in answer && obj.correct) {
-          return {...obj, correct: false};
+        if (hasSingleAnswer && 'correct' in answer && obj.correct) {
+          return { ...obj, correct: false };
         }
         return obj;
       });
@@ -71,7 +71,7 @@ const problem = createSlice({
         if (answer.id === newId) {
           return answer;
         }
-        return {...answer, id: newId}
+        return { ...answer, id: newId };
       });
     },
     addAnswer: (state) => {
@@ -81,23 +81,23 @@ const problem = createSlice({
       }
       const [firstAnswer] = currAnswers;
       const newOption = {
-        id: currAnswers.length ? nextAlphaId(currAnswers[currAnswers.length - 1].id) : "A",
-        title: "",
+        id: currAnswers.length ? nextAlphaId(currAnswers[currAnswers.length - 1].id) : 'A',
+        title: '',
         selectedFeedback: undefined,
         unselectedFeedback: undefined,
         feedback: undefined,
         correct: false,
       };
-      if (typeof firstAnswer.feedback !== "undefined") {
-        newOption.feedback = "";
+      if (typeof firstAnswer.feedback !== 'undefined') {
+        newOption.feedback = '';
       } else {
-        newOption.selectedFeedback = "";
-        newOption.unselectedFeedback = "";
+        newOption.selectedFeedback = '';
+        newOption.unselectedFeedback = '';
       }
       state.answers = [
         ...currAnswers,
         newOption,
-      ]
+      ];
     },
     load: (state, { payload }) => ({
       ...state,

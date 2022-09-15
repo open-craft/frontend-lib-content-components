@@ -1,13 +1,15 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Col, Collapsible, Icon, IconButton, Form, Row } from '@edx/paragon';
+import {
+  Col, Collapsible, Icon, IconButton, Form, Row,
+} from '@edx/paragon';
 import { AddComment, Delete } from '@edx/paragon/icons';
 import { FormattedMessage, injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { useDispatch } from 'react-redux';
 
 import messages from './messages';
 import { actions } from '../../../../../data/redux';
-import { answerOptionProps } from "../../../../../data/services/cms/types";
+import { answerOptionProps } from '../../../../../data/services/cms/types';
 
 let AnswerOption = ({
   answer,
@@ -25,7 +27,7 @@ let AnswerOption = ({
     setIsFeedbackVisible(isVisible => (
       !!answer.selectedFeedback || !!answer.unselectedFeedback || !!answer.feedback || isVisible
     ));
-  }, [answer])
+  }, [answer]);
 
   const toggleFeedback = (open) => {
     // do not allow to hide if feedback is added
@@ -34,7 +36,7 @@ let AnswerOption = ({
       return;
     }
     setIsFeedbackVisible(open);
-  }
+  };
 
   const Checker = () => {
     let CheckerType = Form.Checkbox;
@@ -45,14 +47,17 @@ let AnswerOption = ({
       <CheckerType
         className="pl-4 mt-3"
         value={answer.id}
-        onChange={(e) => setAnswer({correct: e.target.checked})}
-        defaultChecked={answer.correct}>
+        onChange={(e) => setAnswer({ correct: e.target.checked })}
+        defaultChecked={answer.correct}
+      >
         {answer.id}
       </CheckerType>
-    )
-  }
+    );
+  };
 
-  const feedbackControl = ({ feedback, onChange, labelMessage, labelMessageBoldUnderline }) => (
+  const feedbackControl = ({
+    feedback, onChange, labelMessage, labelMessageBoldUnderline,
+  }) => (
     <Form.Group>
       <Form.Label className="mb-3">
         <FormattedMessage
@@ -61,44 +66,47 @@ let AnswerOption = ({
             answerId: answer.id,
             boldunderline: <b><u><FormattedMessage {...labelMessageBoldUnderline} /></u></b>,
           }}
-          />
+        />
       </Form.Label>
       <Form.Control
         placeholder={intl.formatMessage(messages.feedbackPlaceholder)}
         value={feedback}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     </Form.Group>
-  )
+  );
 
   const displayFeedbackControl = () => {
-    if (typeof answer.feedback !== "undefined") {
+    if (typeof answer.feedback !== 'undefined') {
       return feedbackControl({
         feedback: answer.feedback,
-        onChange: (e) => setAnswer({feedback: e.target.value}),
+        onChange: (e) => setAnswer({ feedback: e.target.value }),
         labelMessage: messages.selectedFeedbackLabel,
-        labelMessageBoldUnderline: messages.selectedFeedbackLabelBoldUnderlineText
+        labelMessageBoldUnderline: messages.selectedFeedbackLabelBoldUnderlineText,
       });
-    } else {
-      return [
-        feedbackControl({
-          feedback: answer.selectedFeedback,
-          onChange: (e) => setAnswer({selectedFeedback: e.target.value}),
-          labelMessage: messages.selectedFeedbackLabel,
-          labelMessageBoldUnderline: messages.selectedFeedbackLabelBoldUnderlineText}),
-        feedbackControl({
-          feedback: answer.unselectedFeedback,
-          onChange: (e) => setAnswer({unselectedFeedback: e.target.value}),
-          labelMessage: messages.unSelectedFeedbackLabel,
-          labelMessageBoldUnderline: messages.unSelectedFeedbackLabelBoldUnderlineText})
-      ]
     }
-  }
+    return [
+      feedbackControl({
+        feedback: answer.selectedFeedback,
+        onChange: (e) => setAnswer({ selectedFeedback: e.target.value }),
+        labelMessage: messages.selectedFeedbackLabel,
+        labelMessageBoldUnderline: messages.selectedFeedbackLabelBoldUnderlineText,
+      }),
+      feedbackControl({
+        feedback: answer.unselectedFeedback,
+        onChange: (e) => setAnswer({ unselectedFeedback: e.target.value }),
+        labelMessage: messages.unSelectedFeedbackLabel,
+        labelMessageBoldUnderline: messages.unSelectedFeedbackLabelBoldUnderlineText,
+      }),
+    ];
+  };
 
   return (
     <Collapsible.Advanced
       open={isFeedbackVisible}
       onToggle={toggleFeedback}
-      className="collapsible-card">
+      className="collapsible-card"
+    >
       <Row className="my-2">
 
         <Col xs={1}>
@@ -110,9 +118,9 @@ let AnswerOption = ({
             as="textarea"
             rows={1}
             value={answer.title}
-            onChange={(e) => setAnswer({title: e.target.value})}
+            onChange={(e) => setAnswer({ title: e.target.value })}
             placeholder={intl.formatMessage(messages.answerTextboxPlaceholder)}
-            />
+          />
 
           <Collapsible.Body>
             <div className="bg-dark-100 p-4 mt-3">
@@ -127,20 +135,22 @@ let AnswerOption = ({
               src={AddComment}
               iconAs={Icon}
               alt={intl.formatMessage(messages.feedbackToggleIconAltText)}
-              variant="primary" />
+              variant="primary"
+            />
           </Collapsible.Trigger>
           <IconButton
             src={Delete}
             iconAs={Icon}
             alt={intl.formatMessage(messages.answerDeleteIconAltText)}
             onClick={deleteAnswer}
-            variant="primary" />
+            variant="primary"
+          />
         </Col>
 
       </Row>
     </Collapsible.Advanced>
-  )
-}
+  );
+};
 
 AnswerOption = memo(AnswerOption);
 AnswerOption.propTypes = {
