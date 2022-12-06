@@ -53,6 +53,7 @@ export const TextEditor = ({
 
   if (!refReady) { return null; }
 
+  // eslint-disable-next-line
   console.log(`This is a Raw Editor: ${isRaw}`);
 
   return (
@@ -103,6 +104,7 @@ export const TextEditor = ({
 };
 TextEditor.defaultProps = {
   blockValue: null,
+  isRaw: false,
   lmsEndpointUrl: null,
   studioEndpointUrl: null,
 };
@@ -112,6 +114,7 @@ TextEditor.propTypes = {
   blockValue: PropTypes.shape({
     data: PropTypes.shape({ data: PropTypes.string }),
   }),
+  isRaw: PropTypes.bool,
   lmsEndpointUrl: PropTypes.string,
   studioEndpointUrl: PropTypes.string,
   blockFailed: PropTypes.bool.isRequired,

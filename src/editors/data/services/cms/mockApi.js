@@ -38,17 +38,17 @@ export const fetchBlockById = ({ blockId, studioEndpointUrl }) => {
         an incorrect answer
         ]]`,
         attempts_before_showanswer_button: 7,
-        matlab_api_key: "sample_matlab_api_key",
+        matlab_api_key: 'sample_matlab_api_key',
         max_attempts: 5,
-        rerandomize: "per_student",
+        rerandomize: 'per_student',
         show_reset_button: true,
-        showanswer: "after_attempts",
+        showanswer: 'after_attempts',
         submission_wait_seconds: 15,
         weight: 29,
       },
     };
   }
-  return mockPromise({ data: { ...data }, });
+  return mockPromise({ data: { ...data } });
 };
 
 // TODO: update to return block data appropriate per block ID, which will equal block type
@@ -132,7 +132,7 @@ export const normalizeContent = ({
       couseKey: learningContextId,
       has_changes: true,
       id: blockId,
-      metadata: { display_name: title,  ...content.settings },
+      metadata: { display_name: title, ...content.settings },
     };
   } else {
     throw new TypeError(`No Block in V2 Editors named /"${blockType}/", Cannot Save Content.`);
@@ -213,11 +213,11 @@ export const fetchStudioView = ({ blockId, studioEndpointUrl }) => {
         an incorrect answer
         ]]`,
         attempts_before_showanswer_button: 7,
-        matlab_api_key: "numerical_input_matlab_api_key",
+        matlab_api_key: 'numerical_input_matlab_api_key',
         max_attempts: 5,
-        rerandomize: "per_student",
+        rerandomize: 'per_student',
         show_reset_button: true,
-        showanswer: "after_attempts",
+        showanswer: 'after_attempts',
         submission_wait_seconds: 15,
         weight: 29,
       },
