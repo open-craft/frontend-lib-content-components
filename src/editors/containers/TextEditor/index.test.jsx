@@ -62,6 +62,7 @@ jest.mock('../../data/redux', () => ({
       blockValue: jest.fn(state => ({ blockValue: state })),
       lmsEndpointUrl: jest.fn(state => ({ lmsEndpointUrl: state })),
       studioEndpointUrl: jest.fn(state => ({ lmsEndpointUrl: state })),
+      isRaw: jest.fn(state => ({ isRaw: state })),
     },
     requests: {
       isFailed: jest.fn((state, params) => ({ isFailed: { state, params } })),
@@ -79,6 +80,7 @@ describe('TextEditor', () => {
     studioEndpointUrl: 'sOmEoThERvaLue.cOm',
     blockFailed: false,
     blockFinished: true,
+    isRaw: false,
     initializeEditor: jest.fn().mockName('args.intializeEditor'),
     // inject
     intl: { formatMessage },
