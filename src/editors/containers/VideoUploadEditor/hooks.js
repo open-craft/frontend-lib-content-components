@@ -34,10 +34,10 @@ export const uploadEditor = () => {
 };
 
 export const uploader = () => {
-  const [textInputValue, settextInputValue] = module.state.textInputValue('');
+  const [textInputValue, setTextInputValue] = module.state.textInputValue('');
   return {
     textInputValue,
-    settextInputValue,
+    setTextInputValue,
   };
 };
 

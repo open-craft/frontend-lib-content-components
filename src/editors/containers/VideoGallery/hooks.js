@@ -30,7 +30,7 @@ export const state = {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   sortBy: (val) => React.useState(val),
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  filertBy: (val) => React.useState(val),
+  filterBy: (val) => React.useState(val),
   // eslint-disable-next-line react-hooks/rules-of-hooks
   hideSelectedVideos: (val) => React.useState(val),
 };
@@ -38,7 +38,7 @@ export const state = {
 export const searchAndSortProps = () => {
   const [searchString, setSearchString] = module.state.searchString('');
   const [sortBy, setSortBy] = module.state.sortBy(sortKeys.dateNewest);
-  const [filterBy, setFilterBy] = module.state.filertBy(filterKeys.videoStatus);
+  const [filterBy, setFilterBy] = module.state.filterBy(filterKeys.videoStatus);
   const [hideSelectedVideos, setHideSelectedVideos] = module.state.hideSelectedVideos(false);
 
   return {
@@ -68,7 +68,7 @@ export const filterListByStatus = ({ statusFilter, videoList }) => {
   if (statusFilter === filterKeys.videoStatus) {
     return videoList;
   }
-  return videoList.filter(({ status }) => status === statusFilter);
+  return videoList.filter(({ status }) => status === filterKeys[statusFilter]);
 };
 
 export const filterListByHideSelectedCourse = ({ videoList }) => (
@@ -180,7 +180,7 @@ export const buildVideos = ({ rawVideos }) => {
       id: video.edx_video_id,
       displayName: video.client_video_id,
       externalUrl: video.course_video_image_url,
-      dateAdded: video.created,
+      dateAdded: new Date(video.created),
       locked: false,
       thumbnail: video.course_video_image_url,
       status: video.status,

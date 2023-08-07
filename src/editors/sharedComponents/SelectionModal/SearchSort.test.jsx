@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Dropdown } from '@edx/paragon';
+import { SelectMenu } from '@edx/paragon';
 import { FormattedMessage } from '@edx/frontend-platform/i18n';
 
 import { formatMessage } from '../../../testUtils';
@@ -29,16 +29,16 @@ describe('SearchSort component', () => {
     });
     test('adds a sort option for each sortKey', () => {
       const el = shallow(<SearchSort {...props} />);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...sortMessages.dateNewest} />,
       )).toEqual(true);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...sortMessages.dateOldest} />,
       )).toEqual(true);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...sortMessages.nameAscending} />,
       )).toEqual(true);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...sortMessages.nameDescending} />,
       )).toEqual(true);
     });
@@ -66,34 +66,34 @@ describe('SearchSort component', () => {
     });
     test('adds a sort option for each sortKey', () => {
       const el = shallow(<SearchSort {...props} />);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...sortMessages.dateNewest} />,
       )).toEqual(true);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...sortMessages.dateOldest} />,
       )).toEqual(true);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...sortMessages.nameAscending} />,
       )).toEqual(true);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...sortMessages.nameDescending} />,
       )).toEqual(true);
     });
     test('adds a filter option for each filterKet', () => {
       const el = shallow(<SearchSort {...props} />);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...filterMessages.videoStatus} />,
       )).toEqual(true);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...filterMessages.uploading} />,
       )).toEqual(true);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...filterMessages.processing} />,
       )).toEqual(true);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...filterMessages.ready} />,
       )).toEqual(true);
-      expect(el.find(Dropdown).containsMatchingElement(
+      expect(el.find(SelectMenu).containsMatchingElement(
         <FormattedMessage {...filterMessages.failed} />,
       )).toEqual(true);
     });

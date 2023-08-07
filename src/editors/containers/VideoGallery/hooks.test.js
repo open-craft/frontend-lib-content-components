@@ -54,7 +54,7 @@ describe('VideoGallery hooks', () => {
     state.testGetter(state.keys.showSelectVideoError);
     state.testGetter(state.keys.showSizeError);
     state.testGetter(state.keys.sortBy);
-    state.testGetter(state.keys.filertBy);
+    state.testGetter(state.keys.filterBy);
     state.testGetter(state.keys.hideSelectedVideos);
   });
   describe('using state', () => {
@@ -112,7 +112,7 @@ describe('VideoGallery hooks', () => {
           edx_video_id: 'id_1',
           client_video_id: 'client_id_1',
           course_video_image_url: 'course_video_image_url_1',
-          created: 'created_1',
+          created: '2022-09-07T04:56:58.726Z',
           status: 'status_1',
           duration: 1,
           transcripts: [],
@@ -121,7 +121,7 @@ describe('VideoGallery hooks', () => {
           edx_video_id: 'id_2',
           client_video_id: 'client_id_2',
           course_video_image_url: 'course_video_image_url_2',
-          created: 'created_2',
+          created: '2022-09-07T04:56:58.726Z',
           status: 'status_2',
           duration: 2,
           transcripts: [],
@@ -132,7 +132,7 @@ describe('VideoGallery hooks', () => {
           id: 'id_1',
           displayName: 'client_id_1',
           externalUrl: 'course_video_image_url_1',
-          dateAdded: 'created_1',
+          dateAdded: new Date('2022-09-07T04:56:58.726Z'),
           locked: false,
           thumbnail: 'course_video_image_url_1',
           status: 'status_1',
@@ -144,7 +144,7 @@ describe('VideoGallery hooks', () => {
           id: 'id_2',
           displayName: 'client_id_2',
           externalUrl: 'course_video_image_url_2',
-          dateAdded: 'created_2',
+          dateAdded: new Date('2022-09-07T04:56:58.726Z'),
           locked: false,
           thumbnail: 'course_video_image_url_2',
           status: 'status_2',

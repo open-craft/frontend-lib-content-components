@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  ActionRow, Dropdown, Form, Icon, IconButton,
+  ActionRow, Form, Icon, IconButton, SelectMenu, MenuItem,
 } from '@edx/paragon';
 import { Close, Search } from '@edx/paragon/icons';
 import {
@@ -56,47 +56,37 @@ export const SearchSort = ({
     </Form.Group>
 
     { !showSwitch && <ActionRow.Spacer /> }
-    <Dropdown>
-      <Dropdown.Toggle className="text-gray-700" id="gallery-sort-button" variant="tertiary">
-        <FormattedMessage {...sortMessages[sortBy]} />
-      </Dropdown.Toggle>
-      <Dropdown.Menu>
-        {Object.keys(sortKeys).map(key => (
-          <Dropdown.Item key={key} onClick={onSortClick(key)}>
-            <FormattedMessage {...sortMessages[key]} />
-          </Dropdown.Item>
-        ))}
-      </Dropdown.Menu>
-    </Dropdown>
+    <SelectMenu variant="link">
+      {Object.keys(sortKeys).map(key => (
+        <MenuItem key={key} onClick={onSortClick(key)} defaultSelected={key === sortBy}>
+          <FormattedMessage {...sortMessages[key]} />
+        </MenuItem>
+      ))}
+    </SelectMenu>
 
     { filterKeys && filterMessages && (
-      <Dropdown>
-        <Dropdown.Toggle className="text-gray-700" id="gallery-filter-button" variant="tertiary">
-          <FormattedMessage {...filterMessages[filterBy]} />
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          {Object.keys(filterKeys).map(key => (
-            <Dropdown.Item key={key} onClick={onFilterClick(key)}>
-              <FormattedMessage {...filterMessages[key]} />
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
+    <SelectMenu variant="link">
+      {Object.keys(filterKeys).map(key => (
+        <MenuItem key={key} onClick={onFilterClick(key)} defaultSelected={key === filterBy}>
+          <FormattedMessage {...filterMessages[key]} />
+        </MenuItem>
+      ))}
+    </SelectMenu>
     )}
 
     { showSwitch && (
-      <>
-        <ActionRow.Spacer />
-        <Form.SwitchSet
-          name="switch"
-          onChange={onSwitchClick}
-          isInline
-        >
-          <Form.Switch className="text-gray-700" value="switch-value" floatLabelLeft>
-            <FormattedMessage {...switchMessage} />
-          </Form.Switch>
-        </Form.SwitchSet>
-      </>
+    <>
+      <ActionRow.Spacer />
+      <Form.SwitchSet
+        name="switch"
+        onChange={onSwitchClick}
+        isInline
+      >
+        <Form.Switch className="text-gray-700" value="switch-value" floatLabelLeft>
+          <FormattedMessage {...switchMessage} />
+        </Form.Switch>
+      </Form.SwitchSet>
+    </>
     )}
 
   </ActionRow>

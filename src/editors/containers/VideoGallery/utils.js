@@ -23,10 +23,10 @@ export const sortMessages = StrictDict({
 
 export const filterKeys = StrictDict({
   videoStatus: 'videoStatus',
-  uploading: 'uploading',
-  processing: 'processing',
-  ready: 'ready',
-  failed: 'failed',
+  uploading: 'Uploading',
+  processing: 'In Progress',
+  ready: 'Ready',
+  failed: 'Failed',
 });
 
 export const filterMessages = StrictDict({

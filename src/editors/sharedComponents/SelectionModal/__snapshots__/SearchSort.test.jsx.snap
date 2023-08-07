@@ -26,113 +26,104 @@ exports[`SearchSort component snapshots with filterKeys with search string (clos
       value="props.searchString"
     />
   </Form.Group>
-  <Dropdown>
-    <Dropdown.Toggle
-      className="text-gray-700"
-      id="gallery-sort-button"
-      variant="tertiary"
+  <Component
+    variant="link"
+  >
+    <Component
+      defaultSelected={false}
+      key="dateNewest"
+    >
+      <FormattedMessage
+        defaultMessage="By date added (newest)"
+        description="Dropdown label for sorting by date (newest)"
+        id="authoring.texteditor.selectimagemodal.sort.datenewest.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={true}
+      key="dateOldest"
     >
       <FormattedMessage
         defaultMessage="By date added (oldest)"
         description="Dropdown label for sorting by date (oldest)"
         id="authoring.texteditor.selectimagemodal.sort.dateoldest.label"
       />
-    </Dropdown.Toggle>
-    <Dropdown.Menu>
-      <Dropdown.Item
-        key="dateNewest"
-      >
-        <FormattedMessage
-          defaultMessage="By date added (newest)"
-          description="Dropdown label for sorting by date (newest)"
-          id="authoring.texteditor.selectimagemodal.sort.datenewest.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="dateOldest"
-      >
-        <FormattedMessage
-          defaultMessage="By date added (oldest)"
-          description="Dropdown label for sorting by date (oldest)"
-          id="authoring.texteditor.selectimagemodal.sort.dateoldest.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="nameAscending"
-      >
-        <FormattedMessage
-          defaultMessage="By name (ascending)"
-          description="Dropdown label for sorting by name (ascending)"
-          id="authoring.texteditor.selectimagemodal.sort.nameascending.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="nameDescending"
-      >
-        <FormattedMessage
-          defaultMessage="By name (descending)"
-          description="Dropdown label for sorting by name (descending)"
-          id="authoring.texteditor.selectimagemodal.sort.namedescending.label"
-        />
-      </Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
-  <Dropdown>
-    <Dropdown.Toggle
-      className="text-gray-700"
-      id="gallery-filter-button"
-      variant="tertiary"
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="nameAscending"
     >
-      <FormattedMessage />
-    </Dropdown.Toggle>
-    <Dropdown.Menu>
-      <Dropdown.Item
-        key="videoStatus"
-      >
-        <FormattedMessage
-          defaultMessage="Video status"
-          description="Dropdown label for filter by video status (none)"
-          id="authoring.selectvideomodal.filter.videostatusnone.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="uploading"
-      >
-        <FormattedMessage
-          defaultMessage="Uploading"
-          description="Dropdown label for filter by video status (uploading)"
-          id="authoring.selectvideomodal.filter.videostatusuploading.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="processing"
-      >
-        <FormattedMessage
-          defaultMessage="Processing"
-          description="Dropdown label for filter by video status (processing)"
-          id="authoring.selectvideomodal.filter.videostatusprocessing.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="ready"
-      >
-        <FormattedMessage
-          defaultMessage="Ready"
-          description="Dropdown label for filter by video status (ready)"
-          id="authoring.selectvideomodal.filter.videostatusready.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="failed"
-      >
-        <FormattedMessage
-          defaultMessage="Failed"
-          description="Dropdown label for filter by video status (failed)"
-          id="authoring.selectvideomodal.filter.videostatusfailed.label"
-        />
-      </Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
+      <FormattedMessage
+        defaultMessage="By name (ascending)"
+        description="Dropdown label for sorting by name (ascending)"
+        id="authoring.texteditor.selectimagemodal.sort.nameascending.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="nameDescending"
+    >
+      <FormattedMessage
+        defaultMessage="By name (descending)"
+        description="Dropdown label for sorting by name (descending)"
+        id="authoring.texteditor.selectimagemodal.sort.namedescending.label"
+      />
+    </Component>
+  </Component>
+  <Component
+    variant="link"
+  >
+    <Component
+      defaultSelected={false}
+      key="videoStatus"
+    >
+      <FormattedMessage
+        defaultMessage="Video status"
+        description="Dropdown label for filter by video status (none)"
+        id="authoring.selectvideomodal.filter.videostatusnone.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="uploading"
+    >
+      <FormattedMessage
+        defaultMessage="Uploading"
+        description="Dropdown label for filter by video status (uploading)"
+        id="authoring.selectvideomodal.filter.videostatusuploading.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="processing"
+    >
+      <FormattedMessage
+        defaultMessage="Processing"
+        description="Dropdown label for filter by video status (processing)"
+        id="authoring.selectvideomodal.filter.videostatusprocessing.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="ready"
+    >
+      <FormattedMessage
+        defaultMessage="Ready"
+        description="Dropdown label for filter by video status (ready)"
+        id="authoring.selectvideomodal.filter.videostatusready.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="failed"
+    >
+      <FormattedMessage
+        defaultMessage="Failed"
+        description="Dropdown label for filter by video status (failed)"
+        id="authoring.selectvideomodal.filter.videostatusfailed.label"
+      />
+    </Component>
+  </Component>
   <ActionRow.Spacer />
   <Component
     isInline={true}
@@ -167,113 +158,104 @@ exports[`SearchSort component snapshots with filterKeys without search string (s
       value=""
     />
   </Form.Group>
-  <Dropdown>
-    <Dropdown.Toggle
-      className="text-gray-700"
-      id="gallery-sort-button"
-      variant="tertiary"
+  <Component
+    variant="link"
+  >
+    <Component
+      defaultSelected={false}
+      key="dateNewest"
+    >
+      <FormattedMessage
+        defaultMessage="By date added (newest)"
+        description="Dropdown label for sorting by date (newest)"
+        id="authoring.texteditor.selectimagemodal.sort.datenewest.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={true}
+      key="dateOldest"
     >
       <FormattedMessage
         defaultMessage="By date added (oldest)"
         description="Dropdown label for sorting by date (oldest)"
         id="authoring.texteditor.selectimagemodal.sort.dateoldest.label"
       />
-    </Dropdown.Toggle>
-    <Dropdown.Menu>
-      <Dropdown.Item
-        key="dateNewest"
-      >
-        <FormattedMessage
-          defaultMessage="By date added (newest)"
-          description="Dropdown label for sorting by date (newest)"
-          id="authoring.texteditor.selectimagemodal.sort.datenewest.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="dateOldest"
-      >
-        <FormattedMessage
-          defaultMessage="By date added (oldest)"
-          description="Dropdown label for sorting by date (oldest)"
-          id="authoring.texteditor.selectimagemodal.sort.dateoldest.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="nameAscending"
-      >
-        <FormattedMessage
-          defaultMessage="By name (ascending)"
-          description="Dropdown label for sorting by name (ascending)"
-          id="authoring.texteditor.selectimagemodal.sort.nameascending.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="nameDescending"
-      >
-        <FormattedMessage
-          defaultMessage="By name (descending)"
-          description="Dropdown label for sorting by name (descending)"
-          id="authoring.texteditor.selectimagemodal.sort.namedescending.label"
-        />
-      </Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
-  <Dropdown>
-    <Dropdown.Toggle
-      className="text-gray-700"
-      id="gallery-filter-button"
-      variant="tertiary"
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="nameAscending"
     >
-      <FormattedMessage />
-    </Dropdown.Toggle>
-    <Dropdown.Menu>
-      <Dropdown.Item
-        key="videoStatus"
-      >
-        <FormattedMessage
-          defaultMessage="Video status"
-          description="Dropdown label for filter by video status (none)"
-          id="authoring.selectvideomodal.filter.videostatusnone.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="uploading"
-      >
-        <FormattedMessage
-          defaultMessage="Uploading"
-          description="Dropdown label for filter by video status (uploading)"
-          id="authoring.selectvideomodal.filter.videostatusuploading.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="processing"
-      >
-        <FormattedMessage
-          defaultMessage="Processing"
-          description="Dropdown label for filter by video status (processing)"
-          id="authoring.selectvideomodal.filter.videostatusprocessing.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="ready"
-      >
-        <FormattedMessage
-          defaultMessage="Ready"
-          description="Dropdown label for filter by video status (ready)"
-          id="authoring.selectvideomodal.filter.videostatusready.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="failed"
-      >
-        <FormattedMessage
-          defaultMessage="Failed"
-          description="Dropdown label for filter by video status (failed)"
-          id="authoring.selectvideomodal.filter.videostatusfailed.label"
-        />
-      </Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
+      <FormattedMessage
+        defaultMessage="By name (ascending)"
+        description="Dropdown label for sorting by name (ascending)"
+        id="authoring.texteditor.selectimagemodal.sort.nameascending.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="nameDescending"
+    >
+      <FormattedMessage
+        defaultMessage="By name (descending)"
+        description="Dropdown label for sorting by name (descending)"
+        id="authoring.texteditor.selectimagemodal.sort.namedescending.label"
+      />
+    </Component>
+  </Component>
+  <Component
+    variant="link"
+  >
+    <Component
+      defaultSelected={false}
+      key="videoStatus"
+    >
+      <FormattedMessage
+        defaultMessage="Video status"
+        description="Dropdown label for filter by video status (none)"
+        id="authoring.selectvideomodal.filter.videostatusnone.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="uploading"
+    >
+      <FormattedMessage
+        defaultMessage="Uploading"
+        description="Dropdown label for filter by video status (uploading)"
+        id="authoring.selectvideomodal.filter.videostatusuploading.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="processing"
+    >
+      <FormattedMessage
+        defaultMessage="Processing"
+        description="Dropdown label for filter by video status (processing)"
+        id="authoring.selectvideomodal.filter.videostatusprocessing.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="ready"
+    >
+      <FormattedMessage
+        defaultMessage="Ready"
+        description="Dropdown label for filter by video status (ready)"
+        id="authoring.selectvideomodal.filter.videostatusready.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="failed"
+    >
+      <FormattedMessage
+        defaultMessage="Failed"
+        description="Dropdown label for filter by video status (failed)"
+        id="authoring.selectvideomodal.filter.videostatusfailed.label"
+      />
+    </Component>
+  </Component>
   <ActionRow.Spacer />
   <Component
     isInline={true}
@@ -318,57 +300,50 @@ exports[`SearchSort component snapshots without filterKeys with search string (c
     />
   </Form.Group>
   <ActionRow.Spacer />
-  <Dropdown>
-    <Dropdown.Toggle
-      className="text-gray-700"
-      id="gallery-sort-button"
-      variant="tertiary"
+  <Component
+    variant="link"
+  >
+    <Component
+      defaultSelected={false}
+      key="dateNewest"
+    >
+      <FormattedMessage
+        defaultMessage="By date added (newest)"
+        description="Dropdown label for sorting by date (newest)"
+        id="authoring.texteditor.selectimagemodal.sort.datenewest.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={true}
+      key="dateOldest"
     >
       <FormattedMessage
         defaultMessage="By date added (oldest)"
         description="Dropdown label for sorting by date (oldest)"
         id="authoring.texteditor.selectimagemodal.sort.dateoldest.label"
       />
-    </Dropdown.Toggle>
-    <Dropdown.Menu>
-      <Dropdown.Item
-        key="dateNewest"
-      >
-        <FormattedMessage
-          defaultMessage="By date added (newest)"
-          description="Dropdown label for sorting by date (newest)"
-          id="authoring.texteditor.selectimagemodal.sort.datenewest.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="dateOldest"
-      >
-        <FormattedMessage
-          defaultMessage="By date added (oldest)"
-          description="Dropdown label for sorting by date (oldest)"
-          id="authoring.texteditor.selectimagemodal.sort.dateoldest.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="nameAscending"
-      >
-        <FormattedMessage
-          defaultMessage="By name (ascending)"
-          description="Dropdown label for sorting by name (ascending)"
-          id="authoring.texteditor.selectimagemodal.sort.nameascending.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="nameDescending"
-      >
-        <FormattedMessage
-          defaultMessage="By name (descending)"
-          description="Dropdown label for sorting by name (descending)"
-          id="authoring.texteditor.selectimagemodal.sort.namedescending.label"
-        />
-      </Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="nameAscending"
+    >
+      <FormattedMessage
+        defaultMessage="By name (ascending)"
+        description="Dropdown label for sorting by name (ascending)"
+        id="authoring.texteditor.selectimagemodal.sort.nameascending.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="nameDescending"
+    >
+      <FormattedMessage
+        defaultMessage="By name (descending)"
+        description="Dropdown label for sorting by name (descending)"
+        id="authoring.texteditor.selectimagemodal.sort.namedescending.label"
+      />
+    </Component>
+  </Component>
 </ActionRow>
 `;
 
@@ -390,56 +365,49 @@ exports[`SearchSort component snapshots without filterKeys without search string
     />
   </Form.Group>
   <ActionRow.Spacer />
-  <Dropdown>
-    <Dropdown.Toggle
-      className="text-gray-700"
-      id="gallery-sort-button"
-      variant="tertiary"
+  <Component
+    variant="link"
+  >
+    <Component
+      defaultSelected={false}
+      key="dateNewest"
+    >
+      <FormattedMessage
+        defaultMessage="By date added (newest)"
+        description="Dropdown label for sorting by date (newest)"
+        id="authoring.texteditor.selectimagemodal.sort.datenewest.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={true}
+      key="dateOldest"
     >
       <FormattedMessage
         defaultMessage="By date added (oldest)"
         description="Dropdown label for sorting by date (oldest)"
         id="authoring.texteditor.selectimagemodal.sort.dateoldest.label"
       />
-    </Dropdown.Toggle>
-    <Dropdown.Menu>
-      <Dropdown.Item
-        key="dateNewest"
-      >
-        <FormattedMessage
-          defaultMessage="By date added (newest)"
-          description="Dropdown label for sorting by date (newest)"
-          id="authoring.texteditor.selectimagemodal.sort.datenewest.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="dateOldest"
-      >
-        <FormattedMessage
-          defaultMessage="By date added (oldest)"
-          description="Dropdown label for sorting by date (oldest)"
-          id="authoring.texteditor.selectimagemodal.sort.dateoldest.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="nameAscending"
-      >
-        <FormattedMessage
-          defaultMessage="By name (ascending)"
-          description="Dropdown label for sorting by name (ascending)"
-          id="authoring.texteditor.selectimagemodal.sort.nameascending.label"
-        />
-      </Dropdown.Item>
-      <Dropdown.Item
-        key="nameDescending"
-      >
-        <FormattedMessage
-          defaultMessage="By name (descending)"
-          description="Dropdown label for sorting by name (descending)"
-          id="authoring.texteditor.selectimagemodal.sort.namedescending.label"
-        />
-      </Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="nameAscending"
+    >
+      <FormattedMessage
+        defaultMessage="By name (ascending)"
+        description="Dropdown label for sorting by name (ascending)"
+        id="authoring.texteditor.selectimagemodal.sort.nameascending.label"
+      />
+    </Component>
+    <Component
+      defaultSelected={false}
+      key="nameDescending"
+    >
+      <FormattedMessage
+        defaultMessage="By name (descending)"
+        description="Dropdown label for sorting by name (descending)"
+        id="authoring.texteditor.selectimagemodal.sort.namedescending.label"
+      />
+    </Component>
+  </Component>
 </ActionRow>
 `;
