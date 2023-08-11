@@ -18,28 +18,11 @@ export const {
   navigateTo,
 } = appHooks;
 
-export const state = {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  highlighted: (val) => React.useState(val),
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  searchString: (val) => React.useState(val),
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  showSelectVideoError: (val) => React.useState(val),
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  showSizeError: (val) => React.useState(val),
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  sortBy: (val) => React.useState(val),
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  filterBy: (val) => React.useState(val),
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  hideSelectedVideos: (val) => React.useState(val),
-};
-
-export const searchAndSortProps = () => {
-  const [searchString, setSearchString] = module.state.searchString('');
-  const [sortBy, setSortBy] = module.state.sortBy(sortKeys.dateNewest);
-  const [filterBy, setFilterBy] = module.state.filterBy(filterKeys.videoStatus);
-  const [hideSelectedVideos, setHideSelectedVideos] = module.state.hideSelectedVideos(false);
+export const useSearchAndSortProps = () => {
+  const [searchString, setSearchString] = React.useState('');
+  const [sortBy, setSortBy] = React.useState(sortKeys.dateNewest);
+  const [filterBy, setFilterBy] = React.useState(filterKeys.videoStatus);
+  const [hideSelectedVideos, setHideSelectedVideos] = React.useState(false);
 
   return {
     searchString,
@@ -96,20 +79,18 @@ export const filterList = ({
   return filteredList.sort(sortFunctions[sortBy in sortKeys ? sortKeys[sortBy] : sortKeys.dateNewest]);
 };
 
-export const videoListProps = ({ searchSortProps, videos }) => {
-  const [highlighted, setHighlighted] = module.state.highlighted(null);
+export const useVideoListProps = ({ searchSortProps, videos }) => {
+  const [highlighted, setHighlighted] = React.useState(null);
   const [
     showSelectVideoError,
     setShowSelectVideoError,
-  ] = module.state.showSelectVideoError(false);
+  ] = React.useState(false);
   const [
     showSizeError,
     setShowSizeError,
-  ] = module.state.showSizeError(false);
+  ] = React.useState(false);
   const filteredList = module.filterList({ ...searchSortProps, videos });
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const learningContextId = useSelector(selectors.app.learningContextId);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const blockId = useSelector(selectors.app.blockId);
   return {
     galleryError: {
@@ -147,26 +128,15 @@ export const videoListProps = ({ searchSortProps, videos }) => {
   };
 };
 
-export const fileInputProps = () => {
-  const click = module.handleVideoUpload();
-  return {
-    click,
-  };
-};
-
-export const handleVideoUpload = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export const useVideoUploadHandler = () => {
   const learningContextId = useSelector(selectors.app.learningContextId);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const blockId = useSelector(selectors.app.blockId);
   return () => navigateTo(`/course/${learningContextId}/editor/video_upload/${blockId}`);
 };
 
-export const handleCancel = () => (
+export const useCancelHandler = () => (
   navigateCallback({
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     destination: useSelector(selectors.app.returnUrl),
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     analytics: useSelector(selectors.app.analytics),
     analyticsEvent: analyticsEvt.videoGalleryCancelClick,
   })
@@ -204,16 +174,16 @@ export const getstatusBadgeVariant = ({ status }) => {
   }
 };
 
-export const videoProps = ({ videos }) => {
-  const searchSortProps = module.searchAndSortProps();
-  const videoList = module.videoListProps({ searchSortProps, videos });
+export const useVideoProps = ({ videos }) => {
+  const searchSortProps = useSearchAndSortProps();
+  const videoList = useVideoListProps({ searchSortProps, videos });
   const {
     galleryError,
     galleryProps,
     inputError,
     selectBtnProps,
   } = videoList;
-  const fileInput = module.fileInputProps();
+  const fileInput = { click: useVideoUploadHandler() };
 
   return {
     galleryError,
@@ -226,8 +196,8 @@ export const videoProps = ({ videos }) => {
 };
 
 export default {
-  videoProps,
+  useVideoProps,
   buildVideos,
-  handleCancel,
-  handleVideoUpload,
+  useCancelHandler,
+  useVideoUploadHandler,
 };

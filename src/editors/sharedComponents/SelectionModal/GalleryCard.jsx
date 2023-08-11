@@ -86,7 +86,7 @@ GalleryCard.propTypes = {
     displayName: PropTypes.string,
     externalUrl: PropTypes.string,
     id: PropTypes.string,
-    dateAdded: PropTypes.number,
+    dateAdded: PropTypes.oneOfType([PropTypes.number, PropTypes.instanceOf(Date)]),
     locked: PropTypes.bool,
     portableUrl: PropTypes.string,
     thumbnail: PropTypes.string,
@@ -94,7 +94,7 @@ GalleryCard.propTypes = {
     duration: PropTypes.number,
     status: PropTypes.string,
     statusBadgeVariant: PropTypes.string,
-    transcripts: PropTypes.shape([]),
+    transcripts: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 

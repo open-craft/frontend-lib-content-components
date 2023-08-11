@@ -7,8 +7,7 @@ import {
 import { Close, Search } from '@edx/paragon/icons';
 import {
   FormattedMessage,
-  injectIntl,
-  intlShape,
+  useIntl,
 } from '@edx/frontend-platform/i18n';
 
 import messages from './messages';
@@ -28,16 +27,16 @@ export const SearchSort = ({
   showSwitch,
   switchMessage,
   onSwitchClick,
-  // injected
-  intl,
-}) => (
-  <ActionRow>
-    <Form.Group style={{ margin: 0 }}>
-      <Form.Control
-        autoFocus
-        onChange={onSearchChange}
-        placeholder={intl.formatMessage(messages.searchPlaceholder)}
-        trailingElement={
+}) => {
+  const intl = useIntl();
+  return (
+    <ActionRow>
+      <Form.Group style={{ margin: 0 }}>
+        <Form.Control
+          autoFocus
+          onChange={onSearchChange}
+          placeholder={intl.formatMessage(messages.searchPlaceholder)}
+          trailingElement={
             searchString
               ? (
                 <IconButton
@@ -51,46 +50,47 @@ export const SearchSort = ({
               )
               : <Icon src={Search} />
           }
-        value={searchString}
-      />
-    </Form.Group>
+          value={searchString}
+        />
+      </Form.Group>
 
-    { !showSwitch && <ActionRow.Spacer /> }
-    <SelectMenu variant="link">
-      {Object.keys(sortKeys).map(key => (
-        <MenuItem key={key} onClick={onSortClick(key)} defaultSelected={key === sortBy}>
-          <FormattedMessage {...sortMessages[key]} />
-        </MenuItem>
-      ))}
-    </SelectMenu>
+      { !showSwitch && <ActionRow.Spacer /> }
+      <SelectMenu variant="link">
+        {Object.keys(sortKeys).map(key => (
+          <MenuItem key={key} onClick={onSortClick(key)} defaultSelected={key === sortBy}>
+            <FormattedMessage {...sortMessages[key]} />
+          </MenuItem>
+        ))}
+      </SelectMenu>
 
-    { filterKeys && filterMessages && (
-    <SelectMenu variant="link">
-      {Object.keys(filterKeys).map(key => (
-        <MenuItem key={key} onClick={onFilterClick(key)} defaultSelected={key === filterBy}>
-          <FormattedMessage {...filterMessages[key]} />
-        </MenuItem>
-      ))}
-    </SelectMenu>
-    )}
+      { filterKeys && filterMessages && (
+        <SelectMenu variant="link">
+          {Object.keys(filterKeys).map(key => (
+            <MenuItem key={key} onClick={onFilterClick(key)} defaultSelected={key === filterBy}>
+              <FormattedMessage {...filterMessages[key]} />
+            </MenuItem>
+          ))}
+        </SelectMenu>
+      )}
 
-    { showSwitch && (
-    <>
-      <ActionRow.Spacer />
-      <Form.SwitchSet
-        name="switch"
-        onChange={onSwitchClick}
-        isInline
-      >
-        <Form.Switch className="text-gray-700" value="switch-value" floatLabelLeft>
-          <FormattedMessage {...switchMessage} />
-        </Form.Switch>
-      </Form.SwitchSet>
-    </>
-    )}
+      { showSwitch && (
+        <>
+          <ActionRow.Spacer />
+          <Form.SwitchSet
+            name="switch"
+            onChange={onSwitchClick}
+            isInline
+          >
+            <Form.Switch className="text-gray-700" value="switch-value" floatLabelLeft>
+              <FormattedMessage {...switchMessage} />
+            </Form.Switch>
+          </Form.SwitchSet>
+        </>
+      )}
 
-  </ActionRow>
-);
+    </ActionRow>
+  );
+};
 
 SearchSort.defaultProps = {
   filterBy: '',
@@ -116,8 +116,6 @@ SearchSort.propTypes = {
   showSwitch: PropTypes.bool,
   switchMessage: PropTypes.shape({}).isRequired,
   onSwitchClick: PropTypes.func,
-  // injected
-  intl: intlShape.isRequired,
 };
 
-export default injectIntl(SearchSort);
+export default SearchSort;

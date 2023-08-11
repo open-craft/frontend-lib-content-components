@@ -1,101 +1,72 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { SelectMenu } from '@edx/paragon';
-import { FormattedMessage } from '@edx/frontend-platform/i18n';
-
-import { formatMessage } from '../../../testUtils';
+import '@testing-library/jest-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { IntlProvider } from '@edx/frontend-platform/i18n';
 
 import { sortKeys, sortMessages } from '../ImageUploadModal/SelectImageModal/utils';
 import { filterKeys, filterMessages } from '../../containers/VideoGallery/utils';
 import { SearchSort } from './SearchSort';
 
+jest.unmock('react-redux');
+jest.unmock('@edx/frontend-platform/i18n');
+jest.unmock('@edx/paragon');
+jest.unmock('@edx/paragon/icons');
 describe('SearchSort component', () => {
-  describe('snapshots without filterKeys', () => {
-    const props = {
-      searchString: 'props.searchString',
-      onSearchChange: jest.fn().mockName('props.onSearchChange'),
-      clearSearchString: jest.fn().mockName('props.clearSearchString'),
-      sortBy: sortKeys.dateOldest,
-      sortKeys,
-      sortMessages,
-      onSortClick: jest.fn().mockName('props.onSortClick'),
-      intl: { formatMessage },
-    };
-    test('with search string (close button)', () => {
-      expect(shallow(<SearchSort {...props} />)).toMatchSnapshot();
-    });
-    test('without search string (search icon)', () => {
-      expect(shallow(<SearchSort {...props} searchString="" />)).toMatchSnapshot();
-    });
+  const props = {
+    searchString: 'props.searchString',
+    onSearchChange: jest.fn().mockName('props.onSearchChange'),
+    clearSearchString: jest.fn().mockName('props.clearSearchString'),
+    sortBy: sortKeys.dateOldest,
+    sortKeys,
+    sortMessages,
+    onSortClick: jest.fn().mockName('props.onSortClick'),
+    switchMessage: { id: 'test.id', defaultMessage: 'test message' },
+  };
+  describe('without filterKeys', () => {
     test('adds a sort option for each sortKey', () => {
-      const el = shallow(<SearchSort {...props} />);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...sortMessages.dateNewest} />,
-      )).toEqual(true);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...sortMessages.dateOldest} />,
-      )).toEqual(true);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...sortMessages.nameAscending} />,
-      )).toEqual(true);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...sortMessages.nameDescending} />,
-      )).toEqual(true);
+      const { getByRole } = render(
+        <IntlProvider locale="en">
+          <SearchSort {...props} />
+        </IntlProvider>,
+      );
+      fireEvent.click(screen.getByRole('button', {
+        name: /by date added \(oldest\)/i,
+      }));
+      Object.values(sortMessages).forEach(({ defaultMessage }) => {
+        expect(getByRole('link', { name: defaultMessage })).toBeInTheDocument();
+      });
     });
   });
-  describe('snapshots with filterKeys', () => {
-    const props = {
-      searchString: 'props.searchString',
-      onSearchChange: jest.fn().mockName('props.onSearchChange'),
-      clearSearchString: jest.fn().mockName('props.clearSearchString'),
-      sortBy: sortKeys.dateOldest,
-      sortKeys,
-      sortMessages,
+  describe('with filterKeys', () => {
+    const filterProps = {
+      ...props,
       filterKeys,
       filterMessages,
       showSwitch: true,
-      onSortClick: jest.fn().mockName('props.onSortClick'),
       onFilterClick: jest.fn().mockName('props.onFilterClick'),
-      intl: { formatMessage },
     };
-    test('with search string (close button)', () => {
-      expect(shallow(<SearchSort {...props} />)).toMatchSnapshot();
-    });
-    test('without search string (search icon)', () => {
-      expect(shallow(<SearchSort {...props} searchString="" />)).toMatchSnapshot();
-    });
     test('adds a sort option for each sortKey', () => {
-      const el = shallow(<SearchSort {...props} />);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...sortMessages.dateNewest} />,
-      )).toEqual(true);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...sortMessages.dateOldest} />,
-      )).toEqual(true);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...sortMessages.nameAscending} />,
-      )).toEqual(true);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...sortMessages.nameDescending} />,
-      )).toEqual(true);
+      const { getByRole } = render(
+        <IntlProvider locale="en">
+          <SearchSort {...filterProps} />
+        </IntlProvider>,
+      );
+      fireEvent.click(screen.getByRole('button', { name: /by date added \(oldest\)/i }));
+      Object.values(sortMessages).forEach(({ defaultMessage }) => {
+        expect(getByRole('link', { name: defaultMessage })).toBeInTheDocument();
+      });
     });
     test('adds a filter option for each filterKet', () => {
-      const el = shallow(<SearchSort {...props} />);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...filterMessages.videoStatus} />,
-      )).toEqual(true);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...filterMessages.uploading} />,
-      )).toEqual(true);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...filterMessages.processing} />,
-      )).toEqual(true);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...filterMessages.ready} />,
-      )).toEqual(true);
-      expect(el.find(SelectMenu).containsMatchingElement(
-        <FormattedMessage {...filterMessages.failed} />,
-      )).toEqual(true);
+      const { getByRole } = render(
+        <IntlProvider locale="en">
+          <SearchSort {...filterProps} />
+        </IntlProvider>,
+      );
+      fireEvent.click(screen.getByRole('button', { name: /select/i }));
+      screen.logTestingPlaygroundURL();
+      Object.values(filterMessages).forEach(({ defaultMessage }) => {
+        expect(getByRole('link', { name: defaultMessage })).toBeInTheDocument();
+      });
     });
   });
 });
