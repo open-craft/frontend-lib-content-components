@@ -9,19 +9,15 @@ import {
   FormattedMessage,
   useIntl,
 } from '@edx/frontend-platform/i18n';
+import { useDispatch, useSelector } from 'react-redux';
 
+import MultiSelectFilterDropdown from './MultiSelectFilterDropdown';
 import messages from './messages';
 
 export const SearchSort = ({
-  searchString,
-  onSearchChange,
   clearSearchString,
-  sortBy,
-  onSortClick,
   sortKeys,
   sortMessages,
-  filterBy,
-  onFilterClick,
   filterKeys,
   filterMessages,
   showSwitch,
@@ -29,12 +25,16 @@ export const SearchSort = ({
   onSwitchClick,
 }) => {
   const intl = useIntl();
+  const dispatch = useDispatch();
+  const sortBy = useSelector(selectors.app.videoSortBy);
+  const searchString = useSelector(selectors.app.videoSearchQuery);
+  console.log({sortBy});
   return (
     <ActionRow>
       <Form.Group style={{ margin: 0 }}>
         <Form.Control
           autoFocus
-          onChange={onSearchChange}
+          onChange={({target}) => dispatch(actions.app.setVideoSearchBy(target.value))}
           placeholder={intl.formatMessage(messages.searchPlaceholder)}
           trailingElement={
             searchString
@@ -55,22 +55,24 @@ export const SearchSort = ({
       </Form.Group>
 
       { !showSwitch && <ActionRow.Spacer /> }
-      <SelectMenu variant="link">
+      <SelectMenu variant="outline">
         {Object.keys(sortKeys).map(key => (
-          <MenuItem key={key} onClick={onSortClick(key)} defaultSelected={key === sortBy}>
+          <MenuItem
+            key={key}
+            onClick={() => dispatch(actions.app.setVideoSortBy(key))}
+            defaultSelected={key === sortBy}
+          >
             <FormattedMessage {...sortMessages[key]} />
           </MenuItem>
         ))}
       </SelectMenu>
 
       { filterKeys && filterMessages && (
-        <SelectMenu variant="link">
-          {Object.keys(filterKeys).map(key => (
-            <MenuItem key={key} onClick={onFilterClick(key)} defaultSelected={key === filterBy}>
-              <FormattedMessage {...filterMessages[key]} />
-            </MenuItem>
-          ))}
-        </SelectMenu>
+        <MultiSelectFilterDropdown
+          title={intl.formatMessage(filterMessages['title'])}
+          messages={filterMessages}
+          filterOptions={Object.keys(filterKeys)}
+        />
       )}
 
       { showSwitch && (

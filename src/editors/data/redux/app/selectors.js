@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { filterKeys, sortFunctions, sortKeys } from '../../../containers/VideoGallery/utils';
 import { blockTypes } from '../../constants/app';
 import * as urls from '../../services/cms/urls';
 import * as module from './selectors';
@@ -23,12 +24,19 @@ export const simpleSelectors = {
   blockTitle: mkSimpleSelector(app => app.blockTitle),
   assets: mkSimpleSelector(app => app.assets),
   videos: mkSimpleSelector(app => app.videos),
+  videoSearchQuery: mkSimpleSelector(app => app.videoSearchQuery),
+  videoSortBy: mkSimpleSelector(app => app.videoSortBy),
+  videoFilterBy: mkSimpleSelector(app => app.videoFilterBy),
 };
 
 export const returnUrl = createSelector(
   [module.simpleSelectors.unitUrl, module.simpleSelectors.studioEndpointUrl, module.simpleSelectors.learningContextId],
   (unitUrl, studioEndpointUrl, learningContextId) => (
-    urls.returnUrl({ studioEndpointUrl, unitUrl, learningContextId })
+    urls.returnUrl({
+      studioEndpointUrl,
+      unitUrl,
+      learningContextId
+    })
   ),
 );
 
@@ -65,7 +73,11 @@ export const analytics = createSelector(
     module.simpleSelectors.learningContextId,
   ],
   (blockId, blockType, learningContextId) => (
-    { blockId, blockType, learningContextId }
+    {
+      blockId,
+      blockType,
+      learningContextId
+    }
   ),
 );
 
@@ -95,6 +107,32 @@ export const isLibrary = createSelector(
   },
 );
 
+const filteredVideos = createSelector(
+  [simpleSelectors.videos, simpleSelectors.videoSearchQuery, simpleSelectors.videoFilterBy],
+  (allVideos, query, filters) => allVideos.filter(({
+      displayName,
+      status
+    }) => {
+      const filtersList = Object.keys(filters);
+      // If not filters are selected, return all, otherwise only return videos that match the selected filters
+      return (filtersList.length === 0 || filtersList.map(key => filterKeys[key])
+          .includes(status))
+        && displayName.toLowerCase()
+          .includes(query.toLowerCase());
+    }
+  )
+);
+export const sortedFilteredVideos = createSelector(
+  [filteredVideos, simpleSelectors.videoSortBy],
+  (videos, sortBy) => {
+    console.log({
+      videos,
+      sortBy
+    });
+    return videos.sort(sortFunctions[sortBy in sortKeys ? sortKeys[sortBy] : sortKeys.dateNewest]);
+  }
+);
+
 export default {
   ...simpleSelectors,
   isInitialized,
@@ -103,4 +141,5 @@ export default {
   analytics,
   isRaw,
   isLibrary,
+  sortedFilteredVideos,
 };

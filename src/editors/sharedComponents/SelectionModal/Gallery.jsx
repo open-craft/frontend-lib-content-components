@@ -1,36 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-import {
-  Scrollable, SelectableBox, Spinner,
-} from '@edx/paragon';
+import { Scrollable, SelectableBox, Spinner, } from '@edx/paragon';
+import { FormattedMessage, useIntl, } from '@edx/frontend-platform/i18n';
 
-import {
-  FormattedMessage,
-  injectIntl,
-  intlShape,
-} from '@edx/frontend-platform/i18n';
-
-import messages from './messages';
+import { RequestKeys } from '../../../editors/data/constants/requests';
+import { selectors } from '../../../editors/data/redux';
 import GalleryCard from './GalleryCard';
+import messages from './messages';
 
 export const Gallery = ({
-  show,
   galleryIsEmpty,
   searchIsEmpty,
-  displayList,
   highlighted,
   onHighlightChange,
   emptyGalleryLabel,
   showIdsOnCards,
   height,
-  isLoaded,
-  // injected
-  intl,
 }) => {
-  if (!show) {
-    return null;
-  }
+  const intl = useIntl();
+  const isLoaded = useSelector(
+    (state) => selectors.requests.isFinished(state, { requestKey: RequestKeys.fetchVideos }),
+  );
+  const displayList = useSelector(selectors.app.sortedFilteredVideos);
   if (!isLoaded) {
     return (
       <div style={{
@@ -72,7 +65,7 @@ export const Gallery = ({
           type="radio"
           value={highlighted}
         >
-          { displayList.map(asset => <GalleryCard key={asset.id} asset={asset} showId={showIdsOnCards} />) }
+          {displayList.map(asset => <GalleryCard key={asset.id} asset={asset} showId={showIdsOnCards} />)}
         </SelectableBox.Set>
       </div>
     </Scrollable>
@@ -86,8 +79,6 @@ Gallery.defaultProps = {
   show: true,
 };
 Gallery.propTypes = {
-  show: PropTypes.bool,
-  isLoaded: PropTypes.bool.isRequired,
   galleryIsEmpty: PropTypes.bool.isRequired,
   searchIsEmpty: PropTypes.bool.isRequired,
   displayList: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -96,8 +87,6 @@ Gallery.propTypes = {
   emptyGalleryLabel: PropTypes.shape({}).isRequired,
   showIdsOnCards: PropTypes.bool,
   height: PropTypes.string,
-  // injected
-  intl: intlShape.isRequired,
 };
 
-export default injectIntl(Gallery);
+export default Gallery;

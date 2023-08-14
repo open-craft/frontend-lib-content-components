@@ -172,7 +172,6 @@ describe('VideoGallery', () => {
 
     it('filters videos by search string', async () => {
       await renderComponent();
-      screen.logTestingPlaygroundURL();
       fireEvent.change(screen.getByRole('textbox'), { target: { value: 'CLIENT_ID_2' } });
       expect(screen.queryByText('client_id_2')).toBeInTheDocument();
       expect(screen.queryByText('client_id_1')).not.toBeInTheDocument();

@@ -19,21 +19,21 @@ export const {
 } = appHooks;
 
 export const useSearchAndSortProps = () => {
-  const [searchString, setSearchString] = React.useState('');
-  const [sortBy, setSortBy] = React.useState(sortKeys.dateNewest);
-  const [filterBy, setFilterBy] = React.useState(filterKeys.videoStatus);
+  // const [searchString, setSearchString] = React.useState('');
+  // const [sortBy, setSortBy] = React.useState(sortKeys.dateNewest);
+  // const [filterBy, setFilterBy] = React.useState([]);
   const [hideSelectedVideos, setHideSelectedVideos] = React.useState(false);
 
   return {
-    searchString,
-    onSearchChange: (e) => setSearchString(e.target.value),
-    clearSearchString: () => setSearchString(''),
-    sortBy,
-    onSortClick: (key) => () => setSortBy(key),
+    // searchString,
+    // onSearchChange: (e) => setSearchString(e.target.value),
+    // clearSearchString: () => setSearchString(''),
+    // sortBy,
+    // onSortClick: (key) => () => setSortBy(key),
     sortKeys,
     sortMessages,
-    filterBy,
-    onFilterClick: (key) => () => setFilterBy(key),
+    // filterBy,
+    // onFilterClick: (keys) => setFilterBy(keys),
     filterKeys,
     filterMessages,
     showSwitch: false,
@@ -48,10 +48,12 @@ export const filterListBySearch = ({ searchString, videoList }) => (
 );
 
 export const filterListByStatus = ({ statusFilter, videoList }) => {
-  if (statusFilter === filterKeys.videoStatus) {
+  if (statusFilter.length < 1) {
     return videoList;
   }
-  return videoList.filter(({ status }) => status === filterKeys[statusFilter]);
+  return videoList.filter(
+    ({ status }) => statusFilter.map(key => filterKeys[key]).includes(status)
+  );
 };
 
 export const filterListByHideSelectedCourse = ({ videoList }) => (
@@ -89,7 +91,7 @@ export const useVideoListProps = ({ searchSortProps, videos }) => {
     showSizeError,
     setShowSizeError,
   ] = React.useState(false);
-  const filteredList = module.filterList({ ...searchSortProps, videos });
+  // const filteredList = module.filterList({ ...searchSortProps, videos });
   const learningContextId = useSelector(selectors.app.learningContextId);
   const blockId = useSelector(selectors.app.blockId);
   return {
@@ -107,9 +109,9 @@ export const useVideoListProps = ({ searchSortProps, videos }) => {
       message: messages.fileSizeError,
     },
     galleryProps: {
-      galleryIsEmpty: Object.keys(filteredList).length === 0,
-      searchIsEmpty: filteredList.length === 0,
-      displayList: filteredList,
+      // galleryIsEmpty: Object.keys(filteredList).length === 0,
+      // searchIsEmpty: filteredList.length === 0,
+      // displayList: filteredList,
       highlighted,
       onHighlightChange: (e) => setHighlighted(e.target.value),
       emptyGalleryLabel: messages.emptyGalleryLabel,
@@ -142,38 +144,6 @@ export const useCancelHandler = () => (
   })
 );
 
-export const buildVideos = ({ rawVideos }) => {
-  let videos = [];
-  const rawVideoList = Object.values(rawVideos);
-  if (rawVideoList.length > 0) {
-    videos = rawVideoList.map(video => ({
-      id: video.edx_video_id,
-      displayName: video.client_video_id,
-      externalUrl: video.course_video_image_url,
-      dateAdded: new Date(video.created),
-      locked: false,
-      thumbnail: video.course_video_image_url,
-      status: video.status,
-      statusBadgeVariant: module.getstatusBadgeVariant({ status: video.status }),
-      duration: video.duration,
-      transcripts: video.transcripts,
-    }));
-  }
-  return videos;
-};
-
-export const getstatusBadgeVariant = ({ status }) => {
-  switch (status) {
-    case filterKeys.failed:
-      return 'danger';
-    case filterKeys.uploading:
-    case filterKeys.processing:
-      return 'light';
-    default:
-      return null;
-  }
-};
-
 export const useVideoProps = ({ videos }) => {
   const searchSortProps = useSearchAndSortProps();
   const videoList = useVideoListProps({ searchSortProps, videos });
@@ -197,7 +167,6 @@ export const useVideoProps = ({ videos }) => {
 
 export default {
   useVideoProps,
-  buildVideos,
   useCancelHandler,
   useVideoUploadHandler,
 };

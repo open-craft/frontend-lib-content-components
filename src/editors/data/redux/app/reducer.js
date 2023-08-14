@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { sortKeys } from '../../../containers/VideoGallery/utils';
 import { StrictDict } from '../../../utils';
 
 const initialState = {
@@ -16,8 +17,12 @@ const initialState = {
   studioEndpointUrl: null,
   lmsEndpointUrl: null,
   assets: {},
-  videos: {},
+  videos: [],
   courseDetails: {},
+  videoSearchQuery: '',
+  videoSortBy: sortKeys.dateNewest,
+  videoFilterBy: {},
+  videoHidden: false,
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -49,6 +54,16 @@ const app = createSlice({
     setAssets: (state, { payload }) => ({ ...state, assets: payload }),
     setVideos: (state, { payload }) => ({ ...state, videos: payload }),
     setCourseDetails: (state, { payload }) => ({ ...state, courseDetails: payload }),
+    setVideoSortBy: (state, {payload}) => ({...state, videoSortBy: payload}),
+    toggleVideoFilter: (state, {payload}) => {
+      if(state.videoFilterBy[payload]){
+        delete state.videoFilterBy[payload];
+      } else {
+        state.videoFilterBy[payload] = true;
+      }
+      return state;
+    },
+    setVideoSearchBy: (state, {payload}) => ({...state, videoSearchQuery: payload}),
   },
 });
 

@@ -19,6 +19,6 @@ const strictGet = (target, name) => {
   return undefined;
 };
 
-const StrictDict = (dict) => new Proxy(dict, { get: strictGet });
+const StrictDict = (dict) => dict ;//new Proxy(dict, { get: strictGet });
 
 export default StrictDict;

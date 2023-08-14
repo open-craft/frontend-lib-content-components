@@ -45,9 +45,36 @@ export const fetchAssets = () => (dispatch) => {
   }));
 };
 
+const getStatusBadgeVariant = ({ status }) => {
+  switch (status) {
+    case filterKeys.failed:
+      return 'danger';
+    case filterKeys.uploading:
+    case filterKeys.processing:
+      return 'light';
+    default:
+      return null;
+  }
+};
+function buildVideos(videos) {
+  return videos.map(video => ({
+    id: video.edx_video_id,
+    displayName: video.client_video_id,
+    externalUrl: video.course_video_image_url,
+    dateAdded: new Date(video.created),
+    locked: false,
+    thumbnail: video.course_video_image_url,
+    status: video.status,
+    statusBadgeVariant: getStatusBadgeVariant({ status: video.status }),
+    duration: video.duration,
+    transcripts: video.transcripts,
+  }));
+}
 export const fetchVideos = () => (dispatch) => {
   dispatch(requests.fetchVideos({
-    onSuccess: (response) => dispatch(actions.app.setVideos(response.data.videos)),
+    onSuccess: (response) => dispatch(actions.app.setVideos(
+      buildVideos(response.data.videos)
+    )),
     onFailure: (error) => dispatch(actions.requests.failRequest({
       requestKey: RequestKeys.fetchVideos,
       error,

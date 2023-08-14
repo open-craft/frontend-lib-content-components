@@ -8,7 +8,10 @@ import {
   injectIntl,
   intlShape,
 } from '@edx/frontend-platform/i18n';
+import { useSelector } from 'react-redux';
 
+import { RequestKeys } from '../../data/constants/requests';
+import { selectors } from '../../data/redux';
 import BaseModal from '../BaseModal';
 import SearchSort from './SearchSort';
 import Gallery from './Gallery';
@@ -30,7 +33,6 @@ export const SelectionModal = ({
   selectBtnProps,
   acceptedFiles,
   modalMessages,
-  isLoaded,
   isFetchError,
   isUploadError,
   // injected
@@ -43,7 +45,9 @@ export const SelectionModal = ({
     fetchError,
     uploadError,
   } = modalMessages;
-
+  const isLoaded = useSelector(
+    (state) => selectors.requests.isFinished(state, { requestKey: RequestKeys.fetchVideos }),
+  );
   let background = '#FFFFFF';
   let showGallery = true;
   if (isLoaded && !isFetchError && !isUploadError && !inputError.show) {
@@ -54,7 +58,6 @@ export const SelectionModal = ({
 
   const galleryPropsValues = {
     isLoaded,
-    show: showGallery,
     ...galleryProps,
   };
   return (
@@ -109,7 +112,7 @@ export const SelectionModal = ({
         <FormattedMessage {...galleryError.message} />
       </ErrorAlert>
       <Stack gap={2}>
-        <Gallery {...galleryPropsValues} />
+        {showGallery && <Gallery {...galleryPropsValues} />}
         <FileInput fileInput={fileInput} acceptedFiles={Object.values(acceptedFiles).join()} />
       </Stack>
     </BaseModal>
@@ -152,7 +155,6 @@ SelectionModal.propTypes = {
     fetchError: PropTypes.shape({}).isRequired,
     uploadError: PropTypes.shape({}).isRequired,
   }).isRequired,
-  isLoaded: PropTypes.bool.isRequired,
   isFetchError: PropTypes.bool.isRequired,
   isUploadError: PropTypes.bool.isRequired,
   // injected

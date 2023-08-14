@@ -63,7 +63,6 @@ describe('SearchSort component', () => {
         </IntlProvider>,
       );
       fireEvent.click(screen.getByRole('button', { name: /select/i }));
-      screen.logTestingPlaygroundURL();
       Object.values(filterMessages).forEach(({ defaultMessage }) => {
         expect(getByRole('link', { name: defaultMessage })).toBeInTheDocument();
       });

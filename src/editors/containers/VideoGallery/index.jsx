@@ -8,7 +8,6 @@ import messages from './messages';
 import { RequestKeys } from '../../data/constants/requests';
 
 export const VideoGallery = () => {
-  const rawVideos = useSelector(selectors.app.videos);
   const isLoaded = useSelector(
     (state) => selectors.requests.isFinished(state, { requestKey: RequestKeys.fetchVideos }),
   );
@@ -18,7 +17,7 @@ export const VideoGallery = () => {
   const isUploadError = useSelector(
     (state) => selectors.requests.isFailed(state, { requestKey: RequestKeys.uploadVideo }),
   );
-  const videos = hooks.buildVideos({ rawVideos });
+  const videos = useSelector(selectors.app.sortedFilteredVideos);
   const handleVideoUpload = hooks.useVideoUploadHandler();
 
   useEffect(() => {
@@ -60,7 +59,6 @@ export const VideoGallery = () => {
         selectBtnProps,
         acceptedFiles: acceptedImgKeys,
         modalMessages,
-        isLoaded,
         isUploadError,
         isFetchError,
       }}
