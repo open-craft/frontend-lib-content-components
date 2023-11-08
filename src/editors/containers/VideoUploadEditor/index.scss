@@ -1,4 +1,4 @@
-@import "@openedx/paragon/scss/core/core";
+//@import "@openedx/paragon/scss/core/core";
 
 .dropzone-middle {
   border: 2px dashed #ccc;
@@ -31,7 +31,7 @@
     &, &:active, &:hover {
       background-color: transparent !important;
       border: none !important;
-      color: $gray-500 !important;
+      color: var(--pgn-color-gray-500) !important;
     }
   }
 
