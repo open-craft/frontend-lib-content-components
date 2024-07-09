@@ -89,7 +89,7 @@
   },
   "peerDependencies": {
     "@edx/frontend-platform": ">1.15.0",
-    "@edx/paragon": "^22.0.0",
+    "@edx/paragon": "^22.0.0-alpha.13",
     "prop-types": "^15.5.10",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
